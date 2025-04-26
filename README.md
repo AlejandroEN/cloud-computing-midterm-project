@@ -1,1 +1,1 @@
-# midterm-project-cloud-computing
+# cloud-computing-midterm-project
