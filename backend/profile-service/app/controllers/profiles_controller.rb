@@ -15,7 +15,7 @@ class ProfilesController < ApplicationController
 
   # POST /profiles
   def create
-    @profile = Profile.new(profile_params)
+    @profile = Profile.new(create_profile_params)
 
     if @profile.save
       render json: @profile, status: :created, location: @profile
@@ -44,7 +44,12 @@ class ProfilesController < ApplicationController
       @profile = Profile.find(params.expect(:id))
     end
 
+
     # Only allow a list of trusted parameters through.
+    def create_profile_params
+      params.require(:new_profile).permit(:email, :institution_id)
+    end
+
     def profile_params
       params.expect(profile: [ :nickname, :name, :lastname, :email, :institution_id, :birthday, :gender, :picture_url, :stars ])
     end
