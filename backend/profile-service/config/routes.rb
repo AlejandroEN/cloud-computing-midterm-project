@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :presentation_cards
   resources :bookmarks
   resources :profiles
   resources :institutions
