@@ -2,16 +2,18 @@ class Profile < ApplicationRecord
   belongs_to :institution
   before_create :set_random_nickname
 
+  validates :nickname, presence: true, uniqueness: true
+
   private
 
   def set_random_nickname
-    self.nickname ||= generate_random_nickname
+    loop do
+      self.nickname = generate_random_nickname
+      break unless Profile.exists?(nickname: nickname)
+    end
   end
 
   def generate_random_nickname
-    adjectives = %w[funky cool fast happy silly wild funny]
-    animals = %w[donkey panda lion tiger elephant giraffe penguin wolf]
-
-    "#{adjectives.sample}_#{animals.sample}"
+    "user_#{SecureRandom.alphanumeric(8)}"
   end
 end
