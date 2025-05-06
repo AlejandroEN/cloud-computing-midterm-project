@@ -26,7 +26,7 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/1
   def update
-    if @profile.update(profile_params)
+    if @profile.update(update_profile_params)
       render json: @profile
     else
       render json: @profile.errors, status: :unprocessable_entity
@@ -39,7 +39,6 @@ class ProfilesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_profile
       @profile = Profile.find(params.expect(:id))
     end
@@ -50,7 +49,7 @@ class ProfilesController < ApplicationController
       params.require(:new_profile).permit(:email, :institution_id)
     end
 
-    def profile_params
-      params.expect(profile: [ :nickname, :name, :lastname, :email, :institution_id, :birthday, :gender, :picture_url, :stars ])
+    def update_profile_params
+      params.require(:profile_update).permit(:nickname, :name, :lastname, :birthday, :gender, :new_profile_image, :stars)
     end
 end
