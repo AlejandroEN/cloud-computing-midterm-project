@@ -5,10 +5,10 @@ class Profile < ApplicationRecord
   private
 
   def set_random_nickname
-    self.nickname ||= generate_randon_nickname
+    self.nickname ||= generate_random_nickname
   end
 
-  def generate_randon_nickname
+  def generate_random_nickname
     adjectives = %w[funky cool fast happy silly wild funny]
     animals = %w[donkey panda lion tiger elephant giraffe penguin wolf]
 
