@@ -3,7 +3,7 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks/me
   def index
-    @bookmarks = Bookmark.where(profile_id: @profile_id)
+    @bookmarks = Bookmark.where(profile_id: @profile_id).pluck(:post_id)
     render json: @bookmarks
   end
 
