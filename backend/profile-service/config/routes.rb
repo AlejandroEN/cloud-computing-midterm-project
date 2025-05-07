@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  get "/profiles/self", to: "profiles#show_self"
-  patch "/profiles/self", to: "profiles#update", as: "update_profile"
-  delete "/profiles/self", to: "profiles#destroy", as: "destroy_profile"
+  get "/profiles/me", to: "profiles#show_me"
+  patch "/profiles/me", to: "profiles#update", as: "update_profile"
+  delete "/profiles/me", to: "profiles#destroy", as: "destroy_profile"
 
 end

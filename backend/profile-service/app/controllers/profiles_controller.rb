@@ -1,14 +1,14 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show update_stars ]
-  before_action :set_self, only: %i[ show_self update destroy ]
+  before_action :set_me, only: %i[ show_me update destroy ]
 
   # GET /profiles/1
   def show
     render json: @profile
   end
 
-  #GET /profiles/self
-  def show_self
+  #GET /profiles/me
+  def show_me
     render json: @profile
   end
 
@@ -23,7 +23,7 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /profiles/1
+  # PATCH/PUT /profiles/me
   def update
     if @profile.update(update_profile_params)
       render json: @profile
@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # DELETE /profiles/1
+  # DELETE /profiles/me
   def destroy
     @profile.destroy!
   end
@@ -51,7 +51,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.find(params.expect(:id))
     end
 
-    def set_self
+    def set_me
       id = request.headers["X-User-ID"]
 
       if id.present?
