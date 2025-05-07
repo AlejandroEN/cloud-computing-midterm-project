@@ -12,7 +12,7 @@ class InstitutionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create institution" do
     assert_difference("Institution.count") do
-      post institutions_url, params: { institution: { domain: @institution.domain, image: @institution.image, name: @institution.name } }, as: :json
+      post institutions_url, params: { institution: { domain: @institution.domain, image_url: @institution.image_url, name: @institution.name } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class InstitutionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update institution" do
-    patch institution_url(@institution), params: { institution: { domain: @institution.domain, image: @institution.image, name: @institution.name } }, as: :json
+    patch institution_url(@institution), params: { institution: { domain: @institution.domain, image_url: @institution.image_url, name: @institution.name } }, as: :json
     assert_response :success
   end
 

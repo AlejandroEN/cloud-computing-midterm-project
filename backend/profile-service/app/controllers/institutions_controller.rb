@@ -46,6 +46,6 @@ class InstitutionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def institution_params
-      params.expect(institution: [ :name, :domain, :image ])
+      params.expect(institution: [ :name, :domain, :image_url ])
     end
 end
