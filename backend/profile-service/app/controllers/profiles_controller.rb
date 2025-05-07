@@ -52,12 +52,12 @@ class ProfilesController < ApplicationController
     end
 
     def set_me
-      id = request.headers["X-User-ID"]
+      id = request.headers["X-Profile-ID"]
 
       if id.present?
         @profile = Profile.find(id)
       else
-        render json: { error: "User ID header missing" }, status: :unauthorized
+        render json: { error: "Profile ID header missing" }, status: :unauthorized
       end
     end
 
