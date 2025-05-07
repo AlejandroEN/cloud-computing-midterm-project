@@ -1,15 +1,26 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i[ show update_stars ]
-  before_action :set_me, only: %i[ show_me update destroy ]
+  before_action :set_profile_and_id, only: %i[ show update_stars ]
+  before_action :set_me_and_id, only: %i[ show_me update destroy ]
+  before_action :set_posts_api_service, only: %i[ show show_me ]
 
   # GET /profiles/1
   def show
-    render json: @profile
+    response = @posts_service.get_posts_by_id(@id)
+    if response.success?
+      render json: @profile.merge(response.body), status: :ok
+    else
+      render json: { error: "Unable to fetch posts" }, status: :unprocessable_entity
+    end
   end
 
   #GET /profiles/me
   def show_me
-    render json: @profile
+    response = @posts_service.get_post_me(@id)
+    if response.success?
+      render json: @profile.merge(response.body), status: :ok
+    else
+      render json: { error: "Unable to fetch posts" }, status: :unprocessable_entity
+    end
   end
 
   # POST /profiles
@@ -47,21 +58,25 @@ class ProfilesController < ApplicationController
   end
 
   private
-    def set_profile
-      @profile = Profile.find(params.expect(:id))
+    def set_profile_and_id
+      @id = params[:id]
+      @profile = Profile.find(@id)
     end
 
-    def set_me
-      id = request.headers["X-Profile-ID"]
+    def set_me_and_id
+      @id = request.headers["X-Profile-ID"]
 
-      if id.present?
-        @profile = Profile.find(id)
+      if @id.present?
+        @profile = Profile.find(@id)
       else
         render json: { error: "Profile ID header missing" }, status: :bad_request
       end
     end
 
-    # Only allow a list of trusted parameters through.
+    def set_posts_api_service
+      @posts_service = PostsApiService.new
+    end
+
     def create_profile_params
       params.require(:new_profile).permit(:email, :institution_id)
     end
