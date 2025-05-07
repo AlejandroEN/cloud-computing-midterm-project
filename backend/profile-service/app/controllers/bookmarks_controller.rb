@@ -1,13 +1,13 @@
 class BookmarksController < ApplicationController
   before_action :set_profile_id, only: [ index create destroy]
 
-  # GET /bookmarks/me
+  # GET /profiles/me/bookmarks
   def index
     @bookmarks = Bookmark.where(profile_id: @profile_id).pluck(:post_id)
     render json: @bookmarks
   end
 
-  # POST /bookmarks/me?postId=value
+  # POST /profiles/me/bookmarks?postId=value
   def create
     @bookmark = Bookmark.new(post_id: params[:postId], profile_id: @profile_id)
 
@@ -18,7 +18,7 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # DELETE /bookmarks/me?postId=value
+  # DELETE /profiles/me/bookmarks?postId=value
   def destroy
     @bookmark = Bookmark.find_by(post_id: params[:postId], profile_id: @profile_id)
 
