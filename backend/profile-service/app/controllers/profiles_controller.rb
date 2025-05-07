@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i[ show ]
+  before_action :set_profile, only: %i[ show update_stars ]
   before_action :set_self, only: %i[ show_self update destroy ]
 
   # GET /profiles/1
@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
     render json: @profile
   end
 
+  #GET /profiles/self
   def show_self
     render json: @profile
   end
@@ -25,6 +26,15 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   def update
     if @profile.update(update_profile_params)
+      render json: @profile
+    else
+      render json: @profile.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH /profiles/1
+  def update_stars
+    if @profile.update(update_stars_params)
       render json: @profile
     else
       render json: @profile.errors, status: :unprocessable_entity
@@ -57,6 +67,10 @@ class ProfilesController < ApplicationController
     end
 
     def update_profile_params
-      params.require(:profile_update).permit(:nickname, :name, :lastname, :birthday, :gender, :new_profile_image, :stars)
+      params.require(:profile_update).permit(:nickname, :name, :lastname, :birthday, :gender, :new_profile_image)
+    end
+
+    def update_stars_params
+      params.permit(:stars)
     end
 end
