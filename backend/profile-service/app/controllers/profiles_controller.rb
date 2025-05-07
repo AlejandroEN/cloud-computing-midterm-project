@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i[ show update destroy ]
+  before_action :set_profile, only: %i[ show ]
+  before_action :set_self, only: %i[ show_self update destroy ]
 
   # GET /profiles
   def index
@@ -10,6 +11,10 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1
   def show
+    render json: @profile
+  end
+
+  def show_self
     render json: @profile
   end
 
@@ -43,6 +48,15 @@ class ProfilesController < ApplicationController
       @profile = Profile.find(params.expect(:id))
     end
 
+    def set_self
+      id = request.headers["X-User-ID"]
+
+      if id.present?
+        @profile = Profile.find(id)
+      else
+        render json: { error: "User ID header missing" }, status: :unauthorized
+      end
+    end
 
     # Only allow a list of trusted parameters through.
     def create_profile_params
