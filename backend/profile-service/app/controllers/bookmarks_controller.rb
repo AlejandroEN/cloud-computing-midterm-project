@@ -36,6 +36,6 @@ class BookmarksController < ApplicationController
   private
     def set_profile_id
       @profile_id = request.headers["X-Profile-ID"]
-      render json: { error: 'Profile ID not provided' }, status: :bad_request unless @profile_id
+      render json: { error: 'Profile ID is missing' }, status: :bad_request unless @profile_id
     end
 end

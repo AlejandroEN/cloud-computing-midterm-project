@@ -57,7 +57,7 @@ class ProfilesController < ApplicationController
       if id.present?
         @profile = Profile.find(id)
       else
-        render json: { error: "Profile ID header missing" }, status: :unauthorized
+        render json: { error: "Profile ID header missing" }, status: :bad_request
       end
     end
 
