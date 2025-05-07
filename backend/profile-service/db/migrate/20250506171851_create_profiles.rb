@@ -8,7 +8,7 @@ class CreateProfiles < ActiveRecord::Migration[8.0]
       t.references :institution, null: false, foreign_key: true
       t.date :birthday
       t.string :gender
-      t.string :picture_url, null: false
+      t.string :image_url, null: false
       t.integer :stars
 
       t.timestamps

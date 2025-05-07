@@ -8,7 +8,7 @@ one:
   institution: one
   birthday: 2025-05-06
   gender: MyString
-  picture_url: MyString
+  image_url: MyString
   stars: 1
 
 two:
@@ -19,5 +19,5 @@ two:
   institution: two
   birthday: 2025-05-06
   gender: MyString
-  picture_url: MyString
+  image_url: MyString
   stars: 1
