@@ -21,7 +21,7 @@ class InstitutionsController < ApplicationController
 
   # POST institutions
   def create
-    @institution = Institution.new(institution_params)
+    @institution = Institution.new(create_institution_params)
 
     if @institution.save
       render json: @institution, status: :created, location: @institution
@@ -32,7 +32,19 @@ class InstitutionsController < ApplicationController
 
   # PATCH/PUT institutions/1
   def update
-    if @institution.update(institution_params)
+    if params[:new_institution_image].present?
+      s3_service = S3Service.new
+      uploaded_image_url = s3_service.upload_image(:institution_image, @institution.id, params[:new_institution_image])
+
+      old_image_key = @institution.image_url
+
+      s3_service.delete_image(:institution_image, @institution.id, old_image_key)
+
+      params[:image_url] = uploaded_image_url
+      params.delete(:new_institution_image)
+    end
+
+    if @institution.update(update_institution_params)
       render json: @institution
     else
       render json: @institution.errors, status: :unprocessable_entity
@@ -59,7 +71,11 @@ class InstitutionsController < ApplicationController
       end
     end
 
-    def institution_params
+    def create_institution_params
       params.expect(institution: [ :name, :domain, :image_url ])
+    end
+
+    def update_institution_params
+      params.expect(institution: [ :name, :domain, :image_url, :new_institution_image ])
     end
 end

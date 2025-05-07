@@ -36,6 +36,21 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/me
   def update
+    if params[:new_profile_image].present?
+      s3_service = S3Service.new
+      uploaded_image_url = s3_service.upload_image(:profile_image, @profile.id, params[:new_profile_image])
+
+      default_image_key = ENV['DEFAULT_PROFILE_IMAGE_KEY']
+      old_image_key = @profile.image_url
+
+      if old_image_key != default_image_key
+        s3_service.delete_image(:profile_image, @profile.id, old_image_key)
+      end
+
+      params[:image_url] = uploaded_image_url
+      params.delete(:new_profile_image)
+    end
+
     if @profile.update(update_profile_params)
       render json: @profile
     else
@@ -82,7 +97,7 @@ class ProfilesController < ApplicationController
     end
 
     def update_profile_params
-      params.require(:profile_update).permit(:nickname, :name, :lastname, :birthday, :gender, :new_profile_image)
+      params.require(:profile_update).permit(:nickname, :name, :lastname, :birthday, :gender, :new_profile_image, :image_url)
     end
 
     def update_stars_params
