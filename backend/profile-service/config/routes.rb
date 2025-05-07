@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :create]
   get "/profiles/me", to: "profiles#show_me"
   patch "/profiles/me", to: "profiles#update", as: "update_profile"
+  patch "/profiles/:id", to: "profiles#update_stars", as: "update_stars"
   delete "/profiles/me", to: "profiles#destroy", as: "destroy_profile"
 
   resources :institutions, only: [:index, :show, :create, :update, :destroy]
