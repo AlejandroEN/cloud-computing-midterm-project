@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   patch "/profiles/me", to: "profiles#update", as: "update_profile"
   delete "/profiles/me", to: "profiles#destroy", as: "destroy_profile"
 
-  resources :institutions
+  resources :institutions, only: [:index, :show, :create, :update, :destroy]
+  get "/profiles/me/institutions", to: "institutions#show_own_institution"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
