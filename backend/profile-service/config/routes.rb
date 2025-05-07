@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :presentation_cards
-
   scope '/profiles/me' do
     resources :bookmarks, only: [:index, :create]
     delete "/bookmarks", to: "bookmarks#destroy", as: "destroy_bookmark"
+
+    resources :presentation_cards
   end
 
   resources :profiles, only: [:show, :create]
