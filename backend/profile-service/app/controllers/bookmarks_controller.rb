@@ -1,51 +1,41 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: %i[ show update destroy ]
+  before_action :set_profile_id, only: [ index create destroy]
 
-  # GET /bookmarks
+  # GET /bookmarks/me
   def index
-    @bookmarks = Bookmark.all
-
+    @bookmarks = Bookmark.where(profile_id: @profile_id)
     render json: @bookmarks
   end
 
-  # GET /bookmarks/1
-  def show
-    render json: @bookmark
-  end
-
-  # POST /bookmarks
+  # POST /bookmarks/me?postId=value
   def create
-    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark = Bookmark.new(post_id: params[:postId], profile_id: @profile_id)
 
-    if @bookmark.save
+    if @bookmark.present? && @bookmark.save
       render json: @bookmark, status: :created, location: @bookmark
     else
-      render json: @bookmark.errors, status: :unprocessable_entity
+      render json: @bookmark&.errors || { error: 'Unable to create bookmark' }, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /bookmarks/1
-  def update
-    if @bookmark.update(bookmark_params)
-      render json: @bookmark
-    else
-      render json: @bookmark.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /bookmarks/1
+  # DELETE /bookmarks/me?postId=value
   def destroy
-    @bookmark.destroy!
+    @bookmark = Bookmark.find_by(post_id: params[:postId], profile_id: @profile_id)
+
+    if @bookmark.present?
+      if @bookmark&.destroy
+        head :no_content
+      else
+        render json: { error: 'Bookmark could not be deleted' }, status: :unprocessable_entity
+      end
+    else
+      render json: { error: 'Bookmark not found' }, status: :not_found
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bookmark
-      @bookmark = Bookmark.find(params.expect(:id))
-    end
-
-    # Only allow a list of trusted parameters through.
-    def bookmark_params
-      params.expect(bookmark: [ :post_id, :profile_id ])
+    def set_profile_id
+      @profile_id = request.headers["X-Profile-ID"]
+      render json: { error: 'Profile ID not provided' }, status: :bad_request unless @profile_id
     end
 end
