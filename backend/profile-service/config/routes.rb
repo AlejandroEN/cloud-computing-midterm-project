@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :presentation_cards
   resources :bookmarks
-  resources :profiles
+  resources :profiles, only: [:show, :create]
   resources :institutions
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   get "/profiles/self", to: "profiles#show_self"
+  patch "/profiles/self", to: "profiles#update", as: "update_profile"
+  delete "/profiles/self", to: "profiles#destroy", as: "destroy_profile"
 
 end
