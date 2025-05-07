@@ -2,13 +2,6 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show ]
   before_action :set_self, only: %i[ show_self update destroy ]
 
-  # GET /profiles
-  def index
-    @profiles = Profile.all
-
-    render json: @profiles
-  end
-
   # GET /profiles/1
   def show
     render json: @profile
