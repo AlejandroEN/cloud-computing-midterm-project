@@ -1,18 +1,5 @@
 "use client";
 
-import {
-	BookOpen,
-	Bot,
-	Frame,
-	LifeBuoy,
-	Map,
-	PieChart,
-	Send,
-	Settings2,
-	SquareTerminal,
-} from "lucide-react";
-import * as React from "react";
-
 import { NavMain } from "@/app/(home)/_components/nav-main";
 import { NavSecondary } from "@/app/(home)/_components/nav-secondary";
 import { NavTags } from "@/app/(home)/_components/nav-tags";
@@ -26,9 +13,21 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+	BookOpen,
+	Bot,
+	Frame,
+	LifeBuoy,
+	Map,
+	PieChart,
+	Send,
+	Settings2,
+	SquareTerminal,
+} from "lucide-react";
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import * as React from "react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const data = {
 	user: {
