@@ -13,9 +13,9 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
-import { NavSecondary } from "@/components/nav-secondary";
+import { NavMain } from "@/app/(home)/_components/nav-main";
+import { NavSecondary } from "@/app/(home)/_components/nav-secondary";
+import { NavTags } from "@/app/(home)/_components/nav-tags";
 import { NavUser } from "@/components/nav-user";
 import {
 	Sidebar,
@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const data = {
 	user: {
@@ -37,7 +38,7 @@ const data = {
 	},
 	navMain: [
 		{
-			title: "Playground",
+			title: "Precio",
 			url: "#",
 			icon: SquareTerminal,
 			isActive: true,
@@ -155,8 +156,14 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
-		<Sidebar variant="inset" {...props}>
+		<Sidebar variant="floating" {...props}>
 			<SidebarHeader>
+				<SidebarMenu>
+					<SidebarMenuItem>
+						<Input placeholder="Buscar" />
+					</SidebarMenuItem>
+				</SidebarMenu>
+
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton size="lg" asChild>
@@ -167,11 +174,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>
+
 			<SidebarContent>
 				<NavMain items={data.navMain} />
-				<NavProjects projects={data.projects} />
+				<NavTags tags={data.projects} />
 				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
+
 			<SidebarFooter>
 				<NavUser user={data.user} />
 			</SidebarFooter>
