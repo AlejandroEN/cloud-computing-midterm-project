@@ -21,9 +21,5 @@ func main() {
 
 	rerouting.SetupRoutes(e)
 
-	port := ":8080"
-	log.Printf("Starting Gateway API on port %s\n", port)
-	if err := e.Start(port); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
-	}
+	server.StartServer(e)
 }

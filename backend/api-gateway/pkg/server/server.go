@@ -1,6 +1,8 @@
 package server
 
 import (
+	"log"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -13,4 +15,12 @@ func NewServer() *echo.Echo {
 	e.Use(middleware.CORS())
 
 	return e
+}
+
+func StartServer(e *echo.Echo) {
+	port := ":8080"
+	log.Printf("Starting Gateway API on port %s\n", port)
+	if err := e.Start(port); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
