@@ -1,8 +1,5 @@
 "use client";
 
-import { NavMain } from "@/app/(home)/_components/nav-main";
-import { NavSecondary } from "@/app/(home)/_components/nav-secondary";
-import { NavTags } from "@/app/(home)/_components/nav-tags";
 import { NavUser } from "@/components/nav-user";
 import {
 	Sidebar,
@@ -28,6 +25,9 @@ import Link from "next/link";
 import * as React from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { NavMain } from "./nav-main";
+import { NavProjects } from "./nav-projects";
+import { NavSecondary } from "./nav-secondary";
 
 const data = {
 	user: {
@@ -176,7 +176,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
 			<SidebarContent>
 				<NavMain items={data.navMain} />
-				<NavTags tags={data.projects} />
+				<NavProjects projects={data.projects} />
 				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
 
