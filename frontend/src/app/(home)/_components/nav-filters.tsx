@@ -17,10 +17,11 @@ import {
 import { ChevronRight } from "lucide-react";
 import { NavMainItem } from "../_types";
 
-export function NavMain({ items }: { items: NavMainItem[] }) {
+export function NavFilters({ items }: { items: NavMainItem[] }) {
 	return (
 		<SidebarGroup>
 			<SidebarGroupLabel>Filtros</SidebarGroupLabel>
+
 			<SidebarMenu>
 				{items.map((item) => (
 					<Collapsible

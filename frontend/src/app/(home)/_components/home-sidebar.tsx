@@ -1,7 +1,7 @@
 "use client";
 
-import { NavMain } from "@/app/(home)/_components/nav-main";
-import { NavSecondary } from "@/app/(home)/_components/nav-secondary";
+import { NavFilters } from "@/app/(home)/_components/nav-filters";
+import { NavQuickAccess } from "@/app/(home)/_components/nav-quick-access";
 import { NavTags } from "@/app/(home)/_components/nav-tags";
 import { NavUser } from "@/components/nav-user";
 import {
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Bell, DollarSign, LifeBuoy, Map, SortAsc } from "lucide-react";
 import Link from "next/link";
-import * as React from "react";
+import { ComponentProps } from "react";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { NavMainItem, NavSecondaryItem, NavTagsItem } from "../_types";
@@ -55,9 +55,7 @@ const data = {
 	},
 };
 
-export function HomeSidebar({
-	...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function HomeSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 	return (
 		<Sidebar variant="floating" {...props}>
 			<SidebarHeader>
@@ -71,7 +69,7 @@ export function HomeSidebar({
 					<SidebarMenuItem>
 						<SidebarMenuButton size="lg" asChild>
 							<Button asChild className="w-full">
-								<Link href="/">Publicar</Link>
+								<Link href="/posts/create">Publicar</Link>
 							</Button>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
@@ -79,9 +77,9 @@ export function HomeSidebar({
 			</SidebarHeader>
 
 			<SidebarContent>
-				<NavMain items={navMainItems} />
+				<NavFilters items={navMainItems} />
 				<NavTags tags={navTagsItems} />
-				<NavSecondary items={navSecondaryItems} className="mt-auto" />
+				<NavQuickAccess items={navSecondaryItems} className="mt-auto" />
 			</SidebarContent>
 
 			<SidebarFooter>
