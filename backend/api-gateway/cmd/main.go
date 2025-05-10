@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api-gateway/pkg/auth"
 	"log"
 
 	"github.com/joho/godotenv"
@@ -12,14 +13,18 @@ import (
 func init() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Fatalf("Error loading .env file: %v", err)
 	}
 }
 
 func main() {
 	e := server.NewServer()
 
-	rerouting.SetupRoutes(e)
+	authGroup := e.Group("/auth")
+	auth.SetupRoutes(authGroup)
+
+	apiGroup := e.Group("/")
+	rerouting.SetupRoutes(apiGroup)
 
 	server.StartServer(e)
 }
