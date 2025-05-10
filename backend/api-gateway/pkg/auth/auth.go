@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -17,6 +18,13 @@ import (
 var oauth2Config *oauth2.Config
 
 func init() {
+	requiredEnvVars := []string{"GOOGLE_OAUTH_CLIENT_ID", "GOOGLE_OAUTH_CLIENT_SECRET", "GOOGLE_REDIRECT_URL", "JWT_SECRET"}
+	for _, env := range requiredEnvVars {
+		if os.Getenv(env) == "" {
+			log.Fatalf("Environment variable %s is not set", env)
+		}
+	}
+
 	oauth2Config = &oauth2.Config{
 		ClientID:     os.Getenv("GOOGLE_OAUTH_CLIENT_ID"),
 		ClientSecret: os.Getenv("GOOGLE_OAUTH_CLIENT_SECRET"),
