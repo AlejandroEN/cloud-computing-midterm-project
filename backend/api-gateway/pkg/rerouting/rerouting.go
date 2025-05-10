@@ -10,31 +10,26 @@ import (
 )
 
 func SetupRoutes(apiGroup *echo.Group) {
-	apiGroup.Any("/orchestrator/*", orchestratorHandler)
+	apiGroup.Any("/orchestrator/*", forwardHandler("MICROSERVICE_ORCHESTRATOR_URL"))
 
-	apiGroup.Any("/profiles/*", profilesHandler)
-	apiGroup.Any("/institution/*", profilesHandler)
+	apiGroup.Any("/posts/*", forwardHandler("MICROSERVICE_POSTS_URL"))
 
-	apiGroup.Any("/posts/*", postsHandler)
+	apiGroup.Any("/profiles/*", forwardHandler("MICROSERVICE_PROFILES_URL"))
+	apiGroup.Any("/institution/*", forwardHandler("MICROSERVICE_PROFILES_URL"))
 
-	apiGroup.Any("/purchases/*", purchasesHandler)
-	apiGroup.Any("/reviews/*", purchasesHandler)
+	apiGroup.Any("/purchases/*", forwardHandler("MICROSERVICE_PURCHASES_URL"))
+	apiGroup.Any("/reviews/*", forwardHandler("MICROSERVICE_PURCHASES_URL"))
 }
 
-func orchestratorHandler(c echo.Context) error {
-	return forwardRequest(c, os.Getenv("MICROSERVICE_ORCHESTRATOR_URL"))
-}
+func forwardHandler(microserviceURLEnvVar string) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		microserviceURL := os.Getenv(microserviceURLEnvVar)
+		if microserviceURL == "" {
+			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Microservice URL not found"})
+		}
 
-func profilesHandler(c echo.Context) error {
-	return forwardRequest(c, os.Getenv("MICROSERVICE_PROFILES_URL"))
-}
-
-func postsHandler(c echo.Context) error {
-	return forwardRequest(c, os.Getenv("MICROSERVICE_POSTS_URL"))
-}
-
-func purchasesHandler(c echo.Context) error {
-	return forwardRequest(c, os.Getenv("MICROSERVICE_PURCHASES_URL"))
+		return forwardRequest(c, microserviceURL)
+	}
 }
 
 func forwardRequest(c echo.Context, microserviceURL string) error {
