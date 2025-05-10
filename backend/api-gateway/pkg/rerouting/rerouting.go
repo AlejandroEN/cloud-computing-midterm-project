@@ -38,12 +38,8 @@ func purchasesHandler(c echo.Context) error {
 }
 
 func forwardRequest(c echo.Context, microserviceURL string) error {
-	tokenCookie, err := c.Cookie("token")
-	if err != nil {
-		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Missing JWT token"})
-	}
-
-	tokenString := tokenCookie.Value
+	profileID := c.Get("profileID").(string)
+	institutionID := c.Get("institutionID").(string)
 
 	req := c.Request()
 	client := http.Client{}
@@ -54,7 +50,8 @@ func forwardRequest(c echo.Context, microserviceURL string) error {
 	}
 
 	newReq.Header = req.Header.Clone()
-	newReq.Header.Set("Authorization", "Bearer "+tokenString)
+	newReq.Header.Set("X-Profile-ID", profileID)
+	newReq.Header.Set("X-Institution-ID", institutionID)
 
 	resp, err := client.Do(newReq)
 	if err != nil {
@@ -68,16 +65,6 @@ func forwardRequest(c echo.Context, microserviceURL string) error {
 	}
 
 	c.Response().WriteHeader(resp.StatusCode)
-	_, err = c.Response().Write([]byte(fmt.Sprintf("Response from %s", microserviceURL)))
-	if err != nil {
-		return err
-	}
-
-	_, err = c.Response().Write([]byte(fmt.Sprintf("\nResponse Body:\n")))
-	if err != nil {
-		return err
-	}
-
-	_, err = c.Response().Write(body)
-	return err
+	c.Response().Write(body)
+	return nil
 }

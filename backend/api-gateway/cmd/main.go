@@ -24,6 +24,7 @@ func main() {
 	auth.SetupRoutes(authGroup)
 
 	apiGroup := e.Group("/")
+	apiGroup.Use(auth.JWTMiddleware)
 	rerouting.SetupRoutes(apiGroup)
 
 	server.StartServer(e)
