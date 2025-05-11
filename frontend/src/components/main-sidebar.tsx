@@ -1,8 +1,8 @@
 "use client";
 
-import { NavFilters } from "@/app/(home)/_components/nav-filters";
-import { NavQuickAccess } from "@/app/(home)/_components/nav-quick-access";
-import { NavTags } from "@/app/(home)/_components/nav-tags";
+import { NavFilters } from "@/components/nav-filters";
+import { NavQuickAccess } from "@/components/nav-quick-access";
+import { NavTags } from "@/components/nav-tags";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
@@ -16,13 +16,12 @@ import {
 import { Bell, DollarSign, LifeBuoy, Map, Shell, SortAsc } from "lucide-react";
 import Link from "next/link";
 import { ComponentProps } from "react";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import { NavMainItem, NavSecondaryItem, NavTagsItem } from "../_types";
 import FilterSection from "./FilterSection";
 import OrderBySection from "./OrderBySection";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
-const navMainItems: NavMainItem[] = [
+const navMainItems: ComponentProps<typeof NavFilters>["items"] = [
   {
     title: "Precio",
     icon: DollarSign,
@@ -35,15 +34,15 @@ const navMainItems: NavMainItem[] = [
   },
 ] as const;
 
-const navTagsItems: NavTagsItem[] = [
+const navTagsItems: ComponentProps<typeof NavTags>["tags"] = [
   { title: "Tag 1", icon: Map, queryValue: "tag1" },
   { title: "Tag 2", icon: Map, queryValue: "tag2" },
   { title: "Tag 3", icon: Map, queryValue: "tag3" },
 ] as const;
 
-const navSecondaryItems: NavSecondaryItem[] = [
+const navSecondaryItems: ComponentProps<typeof NavQuickAccess>["items"] = [
   { title: "Notificaciones", url: "/notificaciones", icon: Bell },
-  { title: "Publicaciones", url: "/ventas", icon: Shell },
+  { title: "Posts", url: "/posts", icon: Shell },
   { title: "Ayuda", url: "/ayuda", icon: LifeBuoy },
 ] as const;
 
@@ -55,7 +54,7 @@ const data = {
   },
 };
 
-export function HomeSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
+export function MainSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>

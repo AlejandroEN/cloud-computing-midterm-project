@@ -7,9 +7,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavTagsItem } from "../_types";
+import { LucideIcon } from "lucide-react";
 
-export function NavTags({ tags }: { tags: NavTagsItem[] }) {
+export function NavTags({
+  tags,
+}: {
+  tags: {
+    title: string;
+    queryValue: string;
+    icon: LucideIcon;
+  }[];
+}) {
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Tags</SidebarGroupLabel>

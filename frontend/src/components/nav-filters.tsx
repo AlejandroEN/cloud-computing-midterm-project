@@ -14,10 +14,19 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
 } from "@/components/ui/sidebar";
-import { ChevronRight } from "lucide-react";
-import { NavMainItem } from "../_types";
+import { ChevronRight, LucideIcon } from "lucide-react";
+import { JSX } from "react";
 
-export function NavFilters({ items }: { items: NavMainItem[] }) {
+export function NavFilters({
+  items,
+}: {
+  items: {
+    title: string;
+    icon: LucideIcon;
+    isActive?: boolean;
+    section: JSX.Element;
+  }[];
+}) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Filtros</SidebarGroupLabel>
