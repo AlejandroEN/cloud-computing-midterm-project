@@ -22,6 +22,7 @@ RUN npm run build
 # Expone el puerto que usará tu aplicación
 EXPOSE 80
 EXPOSE 22
+EXPOSE 27017
 
 # Comando para iniciar la aplicación en modo producción
 CMD ["npm", "run", "start:prod"]
