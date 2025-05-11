@@ -54,11 +54,16 @@ class InstitutionsController < ApplicationController
   # DELETE /institutions/1
   def destroy
     @institution.destroy!
+    render json: { message: 'Institution successfully deleted' }, status: :ok
+  rescue ActiveRecord::RecordNotDestroyed
+    render json: { error: 'Failed to delete Institution' }, status: :unprocessable_entity
   end
 
   private
     def set_institution
       @institution = Institution.find(params.expect(:id))
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Institution not found' }, status: :not_found
     end
 
     def set_own_institution
@@ -69,6 +74,9 @@ class InstitutionsController < ApplicationController
       else
         render json: { error: "Profile ID header missing" }, status: :bad_request
       end
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Institution not found' }, status: :not_found
     end
 
     def create_institution_params

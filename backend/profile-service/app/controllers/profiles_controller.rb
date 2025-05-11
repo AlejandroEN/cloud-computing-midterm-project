@@ -90,12 +90,17 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/me
   def destroy
     @profile.destroy!
+    render json: { message: 'Profile deleted successfully' }, status: :ok
+  rescue ActiveRecord::RecordNotDestroyed
+    render json: { error: 'Failed to delete Profile' }, status: :unprocessable_entity
   end
 
   private
     def set_profile_and_id
       @id = params[:id]
       @profile = Profile.find(@id)
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Profile not found' }, status: :not_found
     end
 
     def set_me_and_id
@@ -106,6 +111,9 @@ class ProfilesController < ApplicationController
       else
         render json: { error: "Profile ID header missing" }, status: :bad_request
       end
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Profile not found' }, status: :not_found
     end
 
     def set_email

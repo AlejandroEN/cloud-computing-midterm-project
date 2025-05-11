@@ -37,11 +37,10 @@ class PresentationCardsController < ApplicationController
 
   # DELETE /profiles/me/presentation_cards/1
   def destroy
-    if @presentation_card.destroy
-      head :no_content
-    else
-      render json: { error: 'Failed to delete presentation card' }, status: :unprocessable_entity
-    end
+    @presentation_card.destroy!
+    render json: { message: 'Presentation Card successfully deleted' }, status: :ok
+  rescue ActiveRecord::RecordNotDestroyed
+    render json: { error: 'Failed to delete Presentation Card' }, status: :unprocessable_entity
   end
 
   private
@@ -52,6 +51,8 @@ class PresentationCardsController < ApplicationController
 
     def set_presentation_card
       @presentation_card = PresentationCard.find(params.require(:id))
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Presentation Card not found' }, status: :not_found
     end
 
     def presentation_card_params
