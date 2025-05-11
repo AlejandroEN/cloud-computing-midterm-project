@@ -1,0 +1,70 @@
+**/.DS_Store
+
+# === Rust / Cargo ===
+debug/
+target/
+
+# Cargo.lock should be committed for binaries, not libraries
+Cargo.lock
+
+# Backup files from rustfmt
+**/*.rs.bk
+
+# MSVC debug symbols
+*.pdb
+
+# === JetBrains IDEs (IntelliJ, CLion, PyCharm, etc.) ===
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific settings (never commit)
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/aws.xml
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/mongoSettings.xml
+.idea/replstate.xml
+.idea/sonarlint/
+.idea/sonarlint.xml
+.idea/httpRequests
+.idea/caches/build_file_checksums.ser
+.idea/.gitignore
+.idea/vcs.xml
+
+# Build system and libraries (can cause churn; usually ignored)
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/modules.xml
+.idea/*.iml
+.idea/modules/
+*.iml
+*.ipr
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+
+# IntelliJ build output
+out/
+
+# CMake
+cmake-build-*/
+
+# Legacy / Plugins
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# IntelliJ legacy project format
+*.iws
