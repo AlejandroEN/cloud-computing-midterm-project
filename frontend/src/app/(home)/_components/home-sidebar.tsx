@@ -1,9 +1,9 @@
 "use client";
 
-import { NavFilters } from "@/components/nav-filters";
-import { NavQuickAccess } from "@/components/nav-quick-access";
-import { NavTags } from "@/components/nav-tags";
-import { NavUser } from "@/components/nav-user";
+import { NavFilters } from "@/app/(home)/_components/nav-filters";
+import { NavQuickAccess } from "@/app/(home)/_components/nav-quick-access";
+import { NavTags } from "@/app/(home)/_components/nav-tags";
+import { NavUser } from "@/app/(home)/_components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -13,13 +13,21 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Bell, DollarSign, LifeBuoy, Map, Shell, SortAsc } from "lucide-react";
+import {
+  Bell,
+  DollarSign,
+  Home,
+  LifeBuoy,
+  Map,
+  Shell,
+  SortAsc,
+} from "lucide-react";
 import Link from "next/link";
 import { ComponentProps } from "react";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
 import FilterSection from "./FilterSection";
 import OrderBySection from "./OrderBySection";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 
 const navMainItems: ComponentProps<typeof NavFilters>["items"] = [
   {
@@ -41,6 +49,7 @@ const navTagsItems: ComponentProps<typeof NavTags>["tags"] = [
 ] as const;
 
 const navSecondaryItems: ComponentProps<typeof NavQuickAccess>["items"] = [
+  { title: "Inicio", url: "/", icon: Home },
   { title: "Notificaciones", url: "/notificaciones", icon: Bell },
   { title: "Posts", url: "/posts", icon: Shell },
   { title: "Ayuda", url: "/ayuda", icon: LifeBuoy },
@@ -54,7 +63,7 @@ const data = {
   },
 };
 
-export function MainSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
+export function HomeSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>

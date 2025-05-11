@@ -1,10 +1,14 @@
-import { MainSidebar } from "@/components/main-sidebar";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { HomeSidebar } from "./_components/home-sidebar";
 
-export default function Page() {
+export default function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <>
-      <MainSidebar />
+      <HomeSidebar />
 
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2">
@@ -13,11 +17,7 @@ export default function Page() {
           </div>
         </header>
 
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <p className="text-2xl font-bold">Trending</p>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
-        </div>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
       </SidebarInset>
     </>
   );

@@ -1,5 +1,4 @@
 import Post from "@/components/Post";
-import Link from "next/link";
 import { ComponentProps } from "react";
 
 const posts: ComponentProps<typeof Post>[] = [
@@ -28,17 +27,14 @@ const posts: ComponentProps<typeof Post>[] = [
     rating: 4.0,
   },
 ];
-
-export default async function Page() {
+export default function Page() {
   return (
     <>
-      <p className="text-2xl font-bold">Trending</p>
+      <p className="text-2xl font-bold">Tus publicaciones</p>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {posts.map((post, index) => (
-          <Link key={index} href={`/posts/${index}`}>
-            <Post key={index} {...post} />
-          </Link>
+          <Post key={index} {...post} />
         ))}
       </div>
     </>
