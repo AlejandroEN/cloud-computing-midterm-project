@@ -1,0 +1,48 @@
+# Go binaries
+/bin/
+/obj/
+
+# Dependency directories
+/vendor/
+
+# GoLand project files
+.idea/
+
+# Go test coverage file
+*.out
+
+# User-specific files
+*.user
+*.userprefs
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Compiled files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Archive files
+*.tar.gz
+*.tar.bz2
+*.zip
+*.7z
+
+# macOS Finder folder settings
+._*
