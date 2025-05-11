@@ -1,6 +1,6 @@
 class InstitutionsController < ApplicationController
-  before_action :set_institution, only: %i[ show update destroy ]
-  before_action :set_own_institution, only: %i[ show_own_institution ]
+  before_action :set_institution, only: %i[:show, :update, :destroy]
+  before_action :set_own_institution, only: %i[:show_own_institution]
 
   # GET institutions
   def index

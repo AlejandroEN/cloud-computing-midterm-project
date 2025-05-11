@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :set_profile_id, only: [ index create destroy]
+  before_action :set_profile_id, only: [:index, :create, :destroy]
 
   # GET /profiles/me/bookmarks
   def index

@@ -1,9 +1,9 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile_and_id, only: %i[ show update_stars ]
-  before_action :set_me_and_id, only: %i[ show_me update destroy ]
-  before_action :set_posts_api_service, only: %i[ show show_me ]
-  before_action :validate_internal_token, only: %i[ show_by_email create ]
-  before_action :set_email, only: %i[ show_by_email create ]
+  before_action :set_profile_and_id, only: [:show, :update_stars]
+  before_action :set_me_and_id, only: [:show_me, :update, :destroy]
+  before_action :set_posts_api_service, only: [:show, :show_me]
+  before_action :validate_internal_token, only: [:show_by_email, :create]
+  before_action :set_email, only: [:show_by_email, :create]
 
   # GET /profiles/1
   def show

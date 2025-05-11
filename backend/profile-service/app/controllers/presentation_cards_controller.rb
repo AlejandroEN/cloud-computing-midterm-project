@@ -1,7 +1,7 @@
 class PresentationCardsController < ApplicationController
-  before_action :set_profile_id, only: %i[index create]
-  before_action :set_presentation_card, only: %i[show update destroy]
-  before_action :authorized_to_edit?, only: %i[update destroy]
+  before_action :set_profile_id, only: %i[:index, :create]
+  before_action :set_presentation_card, only: %i[:show, :update, :destroy]
+  before_action :authorized_to_edit?, only: %i[:update, :destroy]
 
   # GET /profiles/me/presentation_cards
   def index
