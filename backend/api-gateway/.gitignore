@@ -11,10 +11,6 @@
 # Go test coverage file
 *.out
 
-# Go module files
-/go.sum
-/go.mod
-
 # User-specific files
 *.user
 *.userprefs
