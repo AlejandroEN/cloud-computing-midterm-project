@@ -1,98 +1,313 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Posts API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta API permite gestionar posts con autenticación JWT. Todos los endpoints requieren un header:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+A continuación se describen cada uno de los endpoints disponibles.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 1. `GET /posts/me`
 
-```bash
-$ npm install
-```
+- **Descripción:** Obtiene todos los posts creados por el usuario autenticado.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:** —  
+- **Query params:** —  
+- **Body:** —  
+- **Respuesta (200):**  
+  Array de objetos `Post`.
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## 2. `GET /posts/profile/:profileId`
 
-# watch mode
-$ npm run start:dev
+- **Descripción:** Obtiene todos los posts públicos (no anónimos) de un vendedor.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `profileId` (string) – ID del vendedor  
+- **Query params:** —  
+- **Body:** — 
+- **Respuesta (200):**  
+  Array de objetos `Post` con `is_anonymous: false`.
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## 3. `GET /posts`
 
-```bash
-# unit tests
-$ npm run test
+- **Descripción:** Búsqueda global de posts con filtros y paginación. Anonimiza `seller_id` en posts anónimos (siempre `"anonymous"` si `is_anonymous: true`).  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Query params** (todos opcionales):  
+  - `priceMin` (number) – precio mínimo  
+  - `priceMax` (number) – precio máximo  
+  - `tag` (string) – tag a buscar  
+  - `nameContains` (string) – texto parcial en el título  
+  - `page` (number, default: 1) – página  
+  - `limit` (number, default: 10) – resultados por página  
+- **Body:** —  
+- **Respuesta (200):**  
+  ```json
+  {
+    "data": [ /* array de posts anonimizados */ ],
+    "meta": {
+      "total": 42,
+      "page": 1,
+      "limit": 10,
+      "totalPages": 5
+    }
+  }
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
-```
+## 4. `GET /posts/:id`
 
-## Deployment
+- **Descripción:** Obtiene el detalle de un post. Si `is_anonymous = true` y no eres el autor, `seller_id` = `"anonymous"`.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `id` (string) – ID del post  
+- **Query params:** —  
+- **Body:** — 
+- **Respuesta (200):**  
+  ```json
+  {
+    "_id": "607d1f77bcf86cd799439011",
+    "title": "Ejemplo",
+    "description": "Detalle del post",
+    "tags": ["foo","bar"],
+    "price": 100,
+    "presentation_card_id": "card123",
+    "images": ["url1"],
+    "is_archived": false,
+    "is_deleted": false,
+    "is_anonymous": true,
+    "seller_id": "anonymous",      // o el ID real si eres el autor
+    "stars_amount": 3,
+    "ratings_count": 2,
+    "createdAt": "...",
+    "updatedAt": "..."
+  }
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 5. `POST /posts`
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+- **Descripción:**  
+  Crea un nuevo post. El campo `seller_id` se toma del JWT del usuario autenticado.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- **Headers:**  
+  - `Authorization`: Bearer `<tu_jwt>`
 
-## Resources
+- **Body (JSON):**  
+  ```json
+  {
+    "title":                "Mi título",           // obligatorio, string
+    "description":          "Texto descriptivo",   // obligatorio, string
+    "tags":                 ["foo","bar"],         // obligatorio, string[]
+    "price":                123.45,                // obligatorio, number
+    "presentation_card_id": "card123",             // obligatorio, string
+    "images":               ["url1","url2"],       // obligatorio, string[]
+    "is_anonymous":         true,                  // opcional, boolean
+  }
+- **Respuesta (200):**  
+  ```json
+  {
+  "_id": "607d1f77bcf86cd799439011",
+  "title": "Mi título",
+  "description": "Texto descriptivo",
+  "tags": ["foo","bar"],
+  "price": 123.45,
+  "presentation_card_id": "card123",
+  "images": ["url1","url2"],
+  "is_anonymous": true,         // por defecto false
+  "stars_amount": 0,            // inicia en 0 y luego se ira actualizando
+  "ratings_count": 3,           // cantidada de valoraciones que tiene el post
+  "seller_id": "usuario123",    // tomado del JWT
+  "is_deleted": false,          // por defecto false
+  "is_archived": false,         // por defecto false
+  "createdAt": "2025-05-09T12:00:00.000Z",
+  "updatedAt": "2025-05-09T12:00:00.000Z"
+  }
 
-Check out a few resources that may come in handy when working with NestJS:
+## 6. `PATCH /posts/delete/:id`
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+- **Descripción:**  
+  “Borrado” lógico (`is_deleted = true`). Solo el autor.
 
-## Support
+- **Headers:**  
+  - `Authorization`: Bearer `<tu_jwt>`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **Path params:**  
+  - `id` (string) – ID del post
 
-## Stay in touch
+- **Query params:** —  
+- **Body:** —  
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Respuestas:**  
+  - **200 OK** (post actualizado)  
+    ```json
+    {
+      "_id": "607d1f77bcf86cd799439011",
+      "is_deleted": true,
+      // … otros campos …
+    }
+---
 
-## License
+## 7. `PATCH /posts/undelete/:id`
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- **Descripción:**  
+  Revierte borrado lógico (`is_deleted = false`). Solo el autor.
+
+- **Headers:**  
+  - `Authorization`: Bearer `<tu_jwt>`
+
+- **Path params:**  
+  - `id` (string)
+
+- **Body / Query:** —  
+
+- **Respuestas:**  
+  - **200 OK** (post actualizado)  
+    ```json
+    {
+      "_id": "607d1f77bcf86cd799439011",
+      "is_deleted": false,
+      // … otros campos …
+    }
+---
+
+## 8. `PUT /posts/:id`
+
+- **Descripción:** Actualiza uno o más campos de un post existente. Solo el autor puede hacerlo.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `id` (string) – ID del post a actualizar  
+- **Body (JSON, todos opcionales):**  
+  ```json
+  {
+    "title":                "Nuevo título",        // opcional, string  
+    "description":          "Nueva descripción",   // opcional, string  
+    "tags":                 ["x","y"],             // opcional, string[]  
+    "price":                999.99,                // opcional, number  
+    "presentation_card_id": "card456",             // opcional, string  
+    "images":               ["url3","url4"]        // opcional, string[]  
+  }
+- **Respuestas:**  
+  - **200 OK** (post actualizado)  
+    ```json
+    {
+    "_id": "607d1f77bcf86cd799439011",
+    "title": "Nuevo título",
+    "description": "Descripción actualizada",
+    "tags": ["x","y"],
+    "price": 999.99,
+    "presentation_card_id": "card456",
+    "images": ["url3","url4"],
+    "is_anonymous": false,
+    "is_archived": false,
+    "is_deleted": false,
+    "seller_id": "usuario123",
+    "stars_amount": 5,
+    "ratings_count": 3,
+    "createdAt": "2025-05-09T12:00:00.000Z",
+    "updatedAt": "2025-05-09T12:10:00.000Z"  
+    }
+
+---
+
+## 9. `PATCH /posts/archive/:id`
+
+- **Descripción:** Marca un post como archivado (`is_archived = true`). Solo el autor puede hacerlo.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `id` (string) – ID del post a archivar  
+- **Body:** —  
+- **Respuesta (200):**  
+  ```json
+  {
+    "_id": "607d1f77bcf86cd799439011",
+    "is_archived": true,
+    // …otros campos…
+  }
+
+---
+
+## 10. `PATCH /posts/unarchive/:id`
+
+- **Descripción:** Revierte el archivado de un post (`is_archived = false`). Solo el autor puede hacerlo.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `id` (string) – ID del post a desarchivar  
+- **Body:** —  
+- **Respuesta (200):**  
+  ```json
+  {
+    "_id": "607d1f77bcf86cd799439011",
+    "is_archived": false,
+    // …otros campos…
+  }
+
+---
+
+## 11. `PATCH /posts/anonymous/:id`
+
+- **Descripción:** Marca un post como anónimo (`is_anonymous = true`). Solo el autor puede hacerlo.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `id` (string) – ID del post a marcar como anónimo  
+- **Body:** —  
+- **Respuesta (200):**  
+  ```json
+  {
+    "_id": "607d1f77bcf86cd799439011",
+    "is_anonymous": true,
+    // …otros campos…
+  }
+
+---
+
+## 12. `PATCH /posts/unanonymous/:id`
+
+- **Descripción:** Revierte el anonimato de un post (`is_anonymous = false`). Solo el autor puede hacerlo.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `id` (string) – ID del post a desmarcar como anónimo  
+- **Body:** —  
+- **Respuesta (200):**  
+  ```json
+  {
+    "_id": "607d1f77bcf86cd799439011",
+    "is_anonymous": false,
+    // …otros campos…
+  }
+---
+
+## 13. `PATCH /posts/rate/:id`
+
+- **Descripción:**  
+  Añade una valoración numérica (0–5) a un post y recalcula su promedio. Cualquiera excepto el creador puede hacerlo.  
+- **Headers:**  
+  - `Authorization` (Bearer Token)  
+- **Path params:**  
+  - `id` (string) – ID del post a valorar  
+- **Body (JSON):**  
+  ```json
+  {
+    "rating": 5   // obligatorio, number entre 0 y 5
+  }
+- **Respuesta (200):**  
+  ```json
+  {
+  "_id": "607d1f77bcf86cd799439011",
+  "stars_amount": 4.5,    // nuevo promedio
+  "ratings_count": 2,     // total de valoraciones
+  // …otros campos del post…
+  }
+

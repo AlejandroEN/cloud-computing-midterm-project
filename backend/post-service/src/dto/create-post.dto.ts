@@ -1,10 +1,6 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString, IsBoolean } from 'class-validator';
 
 export class CreatePostDto {
-
-    @IsNotEmpty()
-    @IsNumber()
-    seller_id: number; 
 
     @IsString()
     @IsNotEmpty()
@@ -27,7 +23,10 @@ export class CreatePostDto {
 
     @IsNotEmpty()
     @IsArray()
-    images: string[];
+    images: string[]; 
+
+    @IsBoolean()
+    is_anonymous?: boolean;
 
 }
     
