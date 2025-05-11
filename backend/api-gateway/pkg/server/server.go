@@ -2,7 +2,9 @@ package server
 
 import (
 	"log"
+	"net/http"
 	"os"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -11,9 +13,30 @@ import (
 func NewServer() *echo.Echo {
 	e := echo.New()
 
+	allowOrigins := os.Getenv("ALLOW_ORIGINS")
+	if allowOrigins == "" {
+		log.Fatal("ALLOW_ORIGINS is not set in the environment")
+	}
+
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	e.Use(middleware.CORS())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: strings.Split(allowOrigins, ","),
+		AllowHeaders: []string{
+			echo.HeaderOrigin,
+			echo.HeaderContentType,
+			echo.HeaderAccept,
+			"X-Profile-ID",
+			"X-Institution-ID",
+			"X-Institution-Token",
+		},
+		AllowMethods: []string{
+			http.MethodGet,
+			http.MethodPatch,
+			http.MethodPost,
+			http.MethodDelete,
+		},
+	}))
 
 	return e
 }

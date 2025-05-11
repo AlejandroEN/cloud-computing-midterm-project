@@ -84,9 +84,12 @@ func HandleGoogleCallback(c echo.Context) error {
 	}
 
 	cookie := &http.Cookie{
-		Name:    "token",
-		Value:   tokenString,
-		Expires: time.Now().Add(24 * time.Hour),
+		Name:     "token",
+		Value:    tokenString,
+		Path:     "/",
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+		Expires:  time.Now().Add(24 * time.Hour),
 	}
 	c.SetCookie(cookie)
 
@@ -110,9 +113,12 @@ func createJWT(profileID, institutionID string) (string, error) {
 
 func HandleLogout(c echo.Context) error {
 	c.SetCookie(&http.Cookie{
-		Name:   "token",
-		Value:  "",
-		MaxAge: -1,
+		Name:     "token",
+		Value:    "",
+		Path:     "/",
+		MaxAge:   -1,
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
 	})
 	return c.JSON(http.StatusOK, map[string]string{"message": "Successfully logged out"})
 }
