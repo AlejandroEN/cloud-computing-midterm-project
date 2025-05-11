@@ -16,6 +16,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { BadgeCheck, ChevronsUpDown, LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 export function NavUser({
   user,
@@ -77,7 +78,7 @@ export function NavUser({
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut()}>
               <LogOut />
               Cerrar sessión
             </DropdownMenuItem>
