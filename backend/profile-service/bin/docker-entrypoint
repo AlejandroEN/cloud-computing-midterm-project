@@ -6,9 +6,19 @@ if [ -z "${LD_PRELOAD+x}" ]; then
     export LD_PRELOAD
 fi
 
-# If running the rails server then create or migrate existing database
+# Wait for the database to be ready before proceeding
+until pg_isready -h "$DB_HOST" -U "$DB_USERNAME" -d "$DB_NAME_PRODUCTION"; do
+  echo "Waiting for database connection..."
+  sleep 2
+done
+
+# If running the rails server, then create or migrate the database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
   ./bin/rails db:prepare
+else
+  # Run any pending migrations
+  bin/rails db:migrate
 fi
 
-exec "${@}"
+# Start the Rails server or any other command
+exec "$@"
