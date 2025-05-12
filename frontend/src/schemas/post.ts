@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const postSchema = z.object({
+export const createPostSchema = z.object({
   title: z.string().min(3, "El título debe tener al menos 3 caracteres"),
   description: z
     .string()
@@ -8,4 +8,17 @@ export const postSchema = z.object({
   price: z.number().min(1, "El precio debe ser mayor a 0"),
 });
 
-export type PostSchema = z.infer<typeof postSchema>;
+export type CreatePost = z.infer<typeof createPostSchema>;
+
+export const postSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  price: z.number(),
+  createdAt: z.date(),
+  tags: z.array(z.string()),
+  imagesUrls: z.array(z.string()),
+  startsAmount: z.number(),
+});
+
+export type Post = z.infer<typeof postSchema>;

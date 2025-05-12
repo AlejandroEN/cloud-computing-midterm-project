@@ -2,14 +2,14 @@
 
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { postSchema, PostSchema } from "@/schemas/post";
+import { CreatePost, createPostSchema } from "@/schemas/post";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { SellSidebar } from "./_components/sell-sidebar";
 
 export default function Page() {
-  const form = useForm<PostSchema>({
-    resolver: zodResolver(postSchema),
+  const form = useForm<CreatePost>({
+    resolver: zodResolver(createPostSchema),
     defaultValues: {
       title: "",
       price: 0,
