@@ -6,6 +6,7 @@ export const env = createEnv({
     AUTH_SECRET: z.string(),
     AUTH_GOOGLE_ID: z.string(),
     AUTH_GOOGLE_SECRET: z.string(),
+    BASE_URL: z.string().url(),
   },
   experimental__runtimeEnv: process.env,
 });
