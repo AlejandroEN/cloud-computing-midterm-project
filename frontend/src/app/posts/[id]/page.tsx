@@ -1,11 +1,4 @@
 import { getPostById } from "@/api/post";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { SidebarInset } from "@/components/ui/sidebar";
 import Image from "next/image";
 import { PostSidebar } from "./_components/post-sidebar";
@@ -23,24 +16,14 @@ export default async function Page({
       <PostSidebar post={post} />
 
       <SidebarInset>
-        <main className="flex flex-1">
-          <Carousel>
-            <CarouselContent>
-              {post.imagesUrls.map((url, index) => (
-                <CarouselItem key={index}>
-                  <Image
-                    src={url}
-                    alt="Post image"
-                    className="h-full w-full object-cover"
-                    fill
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </main>
+        <div className="flex flex-1 flex-col py-6">
+          <Image
+            src={post.imagesUrls[0]}
+            alt="Post image"
+            width={500}
+            height={100}
+          />
+        </div>
       </SidebarInset>
     </>
   );
