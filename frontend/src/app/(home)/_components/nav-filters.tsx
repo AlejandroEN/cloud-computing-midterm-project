@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
@@ -15,7 +16,8 @@ import {
   SidebarMenuSub,
 } from "@/components/ui/sidebar";
 import { ChevronRight, LucideIcon } from "lucide-react";
-import { JSX } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ReactElement } from "react";
 
 export function NavFilters({
   items,
@@ -24,12 +26,27 @@ export function NavFilters({
     title: string;
     icon: LucideIcon;
     isActive?: boolean;
-    section: JSX.Element;
+    section: ReactElement;
   }[];
 }) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  function handleClearFilters() {
+    router.replace(pathname);
+  }
+
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Filtros</SidebarGroupLabel>
+      <div className="flex items-center justify-between">
+        <SidebarGroupLabel>Filtros</SidebarGroupLabel>
+        {searchParams.size > 0 && (
+          <Button onClick={handleClearFilters} variant="ghost">
+            Borrar filtros
+          </Button>
+        )}
+      </div>
 
       <SidebarMenu>
         {items.map((item) => (
