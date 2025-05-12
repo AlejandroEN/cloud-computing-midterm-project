@@ -1,7 +1,9 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile_and_id, only: %i[ show update_stars ]
-  before_action :set_me_and_id, only: %i[ show_me update destroy ]
-  before_action :set_posts_api_service, only: %i[ show show_me ]
+  before_action :set_profile_and_id, only: [:show, :update_stars]
+  before_action :set_me_and_id, only: [:show_me, :update, :destroy]
+  before_action :set_posts_api_service, only: [:show, :show_me]
+  before_action :validate_internal_token, only: [:show_by_email, :create]
+  before_action :set_email, only: [:show_by_email, :create]
 
   # GET /profiles/1
   def show
@@ -23,9 +25,27 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def show_by_email
+    profile = Profile.find_by(email: @email)
+
+    if profile
+      render json: profile, status: :ok
+    else
+      render json: { error: 'Profile not found' }, status: :not_found
+    end
+  end
+
   # POST /profiles
   def create
-    @profile = Profile.new(create_profile_params)
+    domain = @email.split("@").last
+
+    institutions_id = Institution.where(domain: domain).pluck(:id)
+    if institutions_id.empty?
+      render json: { error: "Institution with the given domain does not exist" }, status: :not_found
+      return
+    end
+
+    @profile = Profile.new(institutions_id: institutions_id, image_url: ENV["DEFAULT_PROFILE_IMAGE"])
 
     if @profile.save
       render json: @profile, status: :created, location: @profile
@@ -70,12 +90,17 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/me
   def destroy
     @profile.destroy!
+    render json: { message: 'Profile deleted successfully' }, status: :ok
+  rescue ActiveRecord::RecordNotDestroyed
+    render json: { error: 'Failed to delete Profile' }, status: :unprocessable_entity
   end
 
   private
     def set_profile_and_id
       @id = params[:id]
       @profile = Profile.find(@id)
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Profile not found' }, status: :not_found
     end
 
     def set_me_and_id
@@ -86,6 +111,25 @@ class ProfilesController < ApplicationController
       else
         render json: { error: "Profile ID header missing" }, status: :bad_request
       end
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Profile not found' }, status: :not_found
+    end
+
+    def set_email
+      @email = params[:email]
+      unless @email.present?
+        render json: { error: "Email header missing" }, status: :bad_request
+      end
+    end
+
+    def validate_internal_token
+      internal_token = request.headers["X-Internal-Token"]
+      valid_token = ENV['INTERNAL_VALID_TOKEN']
+
+      unless internal_token.present? && valid_token.present? && ActiveSupport::SecurityUtils.secure_compare(internal_token, valid_token)
+        render json: { error: "Unauthorized" }, status: :unauthorized
+      end
     end
 
     def set_posts_api_service
@@ -93,7 +137,7 @@ class ProfilesController < ApplicationController
     end
 
     def create_profile_params
-      params.require(:new_profile).permit(:email, :institution_id)
+      params.require(:new_profile).permit(:email)
     end
 
     def update_profile_params
