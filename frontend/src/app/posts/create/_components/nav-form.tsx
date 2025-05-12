@@ -13,11 +13,11 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 import { Textarea } from "@/components/ui/textarea";
-import { PostSchema } from "@/schemas/post";
+import { CreatePost } from "@/schemas/post";
 import { UseFormReturn } from "react-hook-form";
 
-export function NavForm({ form }: { form: UseFormReturn<PostSchema> }) {
-  async function onSubmit(data: PostSchema) {
+export function NavForm({ form }: { form: UseFormReturn<CreatePost> }) {
+  async function onSubmit(data: CreatePost) {
     console.log(data);
   }
 

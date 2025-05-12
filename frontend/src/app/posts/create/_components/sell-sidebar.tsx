@@ -8,7 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { PostSchema } from "@/schemas/post";
+import { CreatePost } from "@/schemas/post";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { ComponentProps } from "react";
@@ -17,7 +17,7 @@ import { NavForm } from "./nav-form";
 import { NavImages } from "./nav-images";
 
 interface SellSidebarProps extends ComponentProps<typeof Sidebar> {
-  form: UseFormReturn<PostSchema>;
+  form: UseFormReturn<CreatePost>;
 }
 
 export function SellSidebar({ form, ...props }: SellSidebarProps) {
