@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :set_profile_id, only: [ index create destroy]
+  before_action :set_profile_id, only: [:index, :create, :destroy]
 
   # GET /profiles/me/bookmarks
   def index
@@ -22,15 +22,13 @@ class BookmarksController < ApplicationController
   def destroy
     @bookmark = Bookmark.find_by(post_id: params[:postId], profile_id: @profile_id)
 
-    if @bookmark.present?
-      if @bookmark&.destroy
-        head :no_content
-      else
-        render json: { error: 'Bookmark could not be deleted' }, status: :unprocessable_entity
-      end
-    else
-      render json: { error: 'Bookmark not found' }, status: :not_found
-    end
+    @bookmark&.destroy
+    render json: { message: 'Bookmark successfully deleted' }, status: :ok
+
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Bookmark not found' }, status: :not_found
+  rescue ActiveRecord::RecordNotDestroyed
+    render json: { error: 'Failed to delete Bookmark' }, status: :unprocessable_entity
   end
 
   private
