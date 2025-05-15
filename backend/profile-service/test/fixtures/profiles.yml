@@ -3,21 +3,21 @@
 one:
   nickname: MyString
   name: MyString
-  lastname: MyString
+  last_name: MyString
   email: MyString
   institution: one
   birthday: 2025-05-06
   gender: MyString
-  image_url: MyString
+  image_key: MyString
   stars: 1
 
 two:
   nickname: MyString
   name: MyString
-  lastname: MyString
+  last_name: MyString
   email: MyString
   institution: two
   birthday: 2025-05-06
   gender: MyString
-  image_url: MyString
+  image_key: MyString
   stars: 1

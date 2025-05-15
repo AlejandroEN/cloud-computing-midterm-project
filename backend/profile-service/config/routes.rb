@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :bookmarks, only: [:index, :create]
     delete "/bookmarks", to: "bookmarks#destroy", as: "destroy_bookmark"
 
-    resources :presentation_cards
+    resources :presentation_cards, except: [:show]
   end
 
   resources :profiles, only: [:show, :create]
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   patch "/profiles/me", to: "profiles#update", as: "update_profile"
   patch "/profiles/:id", to: "profiles#update_stars", as: "update_stars"
   delete "/profiles/me", to: "profiles#destroy", as: "destroy_profile"
+  get "/profiles/presentation_cards/:id", to: "presentation_cards#show"
 
   resources :institutions, only: [:index, :show, :create, :update, :destroy]
   get "/profiles/me/institutions", to: "institutions#show_own_institution"

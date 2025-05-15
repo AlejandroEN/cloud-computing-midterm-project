@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :set_profile_id, only: [:index, :create, :destroy]
+  before_action :set_profile_id, only: %i[index create destroy]
 
   # GET /profiles/me/bookmarks
   def index
@@ -12,7 +12,7 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.new(post_id: params[:postId], profile_id: @profile_id)
 
     if @bookmark.present? && @bookmark.save
-      render json: @bookmark, status: :created, location: @bookmark
+      render json: @bookmark, status: :created
     else
       render json: @bookmark&.errors || { error: 'Unable to create bookmark' }, status: :unprocessable_entity
     end
