@@ -1,0 +1,717 @@
+{
+  "info": {
+    "name": "profile-service",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Profiles",
+      "item": [
+        {
+          "name": "Delete own profile by id",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Update stars of seller by id",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stars\": 4.8\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update own profile",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"profile-update\": {\n    \"nickname\": \"a\",\n    \"name\": \"Diego\",\n    \"lastname\": \"Luque\",\n    \"birthday\": \"2004-02-11\",\n    \"gender\": \"M\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get profile by id",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get profile by email",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Internal-Token",
+                "value": "some-very-strong-random-string",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles?email=juan.luque@utec.edu.pe",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles?email=juan.luque@utec.edu.pe"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "juan.luque@utec.edu.pe"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Create profile",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Internal-Token",
+                "value": "some-very-strong-random-string",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_profile\": {\n    \"email\": \"juan.luque@utec.edu.pe\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get own profile",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PresentationCards",
+      "item": [
+        {
+          "name": "Create presentation card",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/presentation-cards",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "presentation-cards"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"presentation-card\": {\n    \"name\": \"Carta 1\",\n    \"content\": \"Hola que tal\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get all presentation cards by profile id",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/presentation-cards",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "presentation-cards"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Delete presentation card by id",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/presentation-cards/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "presentation-cards",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update presentation card by id",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/presentation-cards/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "presentation-cards",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"presentation-card\": {\n    \"name\": \"Carta 1\",\n    \"content\": \"Hola que tal\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get presentation card by id",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/presentation-cards/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "presentation-cards",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "item": [
+        {
+          "name": "Delete bookmark by post id",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/bookmarks?postId",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "bookmarks?postId"
+              ],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get all bookmarks by profile id",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/bookmarks",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "bookmarks"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Create bookmark by post id",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/bookmarks?postId",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "bookmarks?postId"
+              ],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"presentation_card\": {\n    \"name\": \"Bookmark 1\",\n    \"content\": \"Hola 1\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Institutions",
+      "item": [
+        {
+          "name": "Delete institution by id",
+          "event": [],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/institutions/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "institutions",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update institution by id",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/institutions/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "institutions",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institution\": {\n    \"name\": \"UTEC\",\n    \"domain\": \"utec.edu.pe\",\n    \"image_url\": \"no se xd\",\n    \"new_institution_img\": \"tampoco se xd\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get all institutions",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/institutions",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "institutions"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get institution by id",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/institutions/:id",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "institutions",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get own institution",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/profiles/me/institutions",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "profiles",
+                "me",
+                "institutions"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Create institution",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "{{profile-service-url}}/institutions",
+              "protocol": "",
+              "host": [
+                "{{profile-service-url}}"
+              ],
+              "path": [
+                "institutions"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institution\": {\n    \"name\": \"UTEC\",\n    \"domain\": \"utec.edu.pe\",\n    \"image_url\": \"no se xd\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "profile-service-url",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
