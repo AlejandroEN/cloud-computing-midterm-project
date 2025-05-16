@@ -15,17 +15,19 @@ services:
     networks:
       - backend-network
 
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8002:8080"
+    networks:
+      - backend-network
+
   # purchase-service:
   #   build: ./purchase-service
   #   ports:
   #     - "8002:3000"
   #   env_file:
   #     - ./purchase-service/.env
-
-  # orchestrator:
-  #   build: ./orchestrator
-  #   ports:
-  #     - "3000:3000"
 
 networks:
   backend-network:
