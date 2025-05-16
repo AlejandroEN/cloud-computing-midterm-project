@@ -1,0 +1,32 @@
+services:
+  profile-service:
+    build: ./profile-service
+    ports:
+      - "8000:3000"
+    env_file:
+      - ./profile-service/.env
+    networks:
+      - backend-network
+
+  post-service:
+    build: ./post-service
+    ports:
+      - "8001:3000"
+    networks:
+      - backend-network
+
+  # purchase-service:
+  #   build: ./purchase-service
+  #   ports:
+  #     - "8002:3000"
+  #   env_file:
+  #     - ./purchase-service/.env
+
+  # orchestrator:
+  #   build: ./orchestrator
+  #   ports:
+  #     - "3000:3000"
+
+networks:
+  backend-network:
+   driver: bridge
