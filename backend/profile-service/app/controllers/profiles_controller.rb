@@ -1,9 +1,9 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile_and_id, only: [:show, :update_stars]
-  before_action :set_me_and_id, only: [:show_me, :update, :destroy]
-  before_action :set_posts_api_service, only: [:show, :show_me]
-  before_action :validate_internal_token, only: [:show_by_email, :create]
-  before_action :set_email, only: [:show_by_email, :create]
+  before_action :set_profile_and_id, only: %i[show update_stars]
+  before_action :set_me_and_id, only: %i[show_me update destroy]
+  before_action :set_posts_api_service, only: %i[show show_me]
+  before_action :validate_internal_token, only: %i[show_by_email create]
+  before_action :set_email, only: %i[show_by_email create]
 
   # GET /profiles/1
   def show
@@ -39,13 +39,21 @@ class ProfilesController < ApplicationController
   def create
     domain = @email.split("@").last
 
-    institutions_id = Institution.where(domain: domain).pluck(:id)
-    if institutions_id.empty?
+    institution = Institution.find_by(domain: domain)
+    unless institution
       render json: { error: "Institution with the given domain does not exist" }, status: :not_found
       return
     end
 
-    @profile = Profile.new(institutions_id: institutions_id, image_url: ENV["DEFAULT_PROFILE_IMAGE"])
+    institution_id = institution.id
+    @profile = Profile.new(
+      institution_id: institution_id,
+      nickname: Profile.new.send(:generate_random_nickname),
+      email: @email,
+      image_key: ENV["DEFAULT_PROFILE_IMAGE"]
+    )
+
+    @profile.valid?
 
     if @profile.save
       render json: @profile, status: :created, location: @profile
@@ -58,16 +66,16 @@ class ProfilesController < ApplicationController
   def update
     if params[:new_profile_image].present?
       s3_service = S3Service.new
-      uploaded_image_url = s3_service.upload_image(:profile_image, @profile.id, params[:new_profile_image])
+      uploaded_image_key = s3_service.upload_image(:profile_image, @profile.id, params[:new_profile_image])
 
       default_image_key = ENV['DEFAULT_PROFILE_IMAGE_KEY']
-      old_image_key = @profile.image_url
+      old_image_key = @profile.image_key
 
       if old_image_key != default_image_key
         s3_service.delete_image(:profile_image, @profile.id, old_image_key)
       end
 
-      params[:image_url] = uploaded_image_url
+      params[:image_key] = uploaded_image_key
       params.delete(:new_profile_image)
     end
 
@@ -98,7 +106,7 @@ class ProfilesController < ApplicationController
   private
     def set_profile_and_id
       @id = params[:id]
-      @profile = Profile.find(@id)
+      @profile = Profile.find_by(id: @id)
     rescue ActiveRecord::RecordNotFound
       render json: { error: 'Profile not found' }, status: :not_found
     end
@@ -107,7 +115,7 @@ class ProfilesController < ApplicationController
       @id = request.headers["X-Profile-ID"]
 
       if @id.present?
-        @profile = Profile.find(@id)
+        @profile = Profile.find_by(id: @id)
       else
         render json: { error: "Profile ID header missing" }, status: :bad_request
       end
@@ -141,7 +149,7 @@ class ProfilesController < ApplicationController
     end
 
     def update_profile_params
-      params.require(:profile_update).permit(:nickname, :name, :lastname, :birthday, :gender, :new_profile_image, :image_url)
+      params.require(:profile_update).permit(:nickname, :name, :last_name, :birthday, :gender, :new_profile_image, :image_key)
     end
 
     def update_stars_params
