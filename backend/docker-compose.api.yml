@@ -15,12 +15,12 @@ services:
     networks:
       - backend-network
 
-  api-gateway:
-    build: ./api-gateway
-    ports:
-      - "8002:8080"
-    networks:
-      - backend-network
+  # api-gateway:
+  #   build: ./api-gateway
+  #   ports:
+  #     - "8002:8080"
+  #   networks:
+  #     - backend-network
 
   # purchase-service:
   #   build: ./purchase-service
