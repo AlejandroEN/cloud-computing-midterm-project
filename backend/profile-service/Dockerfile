@@ -71,7 +71,7 @@ USER rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Expose application port
-EXPOSE 80
+EXPOSE 3000
 
 # Default command to start the Rails server
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]

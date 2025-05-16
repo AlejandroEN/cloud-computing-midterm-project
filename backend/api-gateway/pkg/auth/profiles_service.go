@@ -4,10 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/labstack/echo/v4"
 	"net/http"
 	"os"
-
-	"github.com/labstack/echo/v4"
 )
 
 type Institution struct {
@@ -24,19 +23,20 @@ type Profile struct {
 
 func getProfileByEmail(email string, c echo.Context) (*Profile, error) {
 	url := fmt.Sprintf("%s/profiles?email=%s", os.Getenv("MICROSERVICE_PROFILES_URL"), email)
-
 	req, err := http.NewRequest(http.MethodGet, url, nil)
+
 	if err != nil {
 		return nil, err
 	}
 
 	req.Header.Set("X-Internak-Token", os.Getenv("INTERNAL_API_SECRET"))
-
 	client := &http.Client{}
 	resp, err := client.Do(req)
+
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
@@ -44,6 +44,7 @@ func getProfileByEmail(email string, c echo.Context) (*Profile, error) {
 	}
 
 	var profile Profile
+
 	if err := json.NewDecoder(resp.Body).Decode(&profile); err != nil {
 		return nil, err
 	}
@@ -53,14 +54,15 @@ func getProfileByEmail(email string, c echo.Context) (*Profile, error) {
 
 func createProfile(email string, c echo.Context) (*Profile, error) {
 	url := fmt.Sprintf("%s/profiles", os.Getenv("MICROSERVICE_PROFILES_URL"))
-
 	profilePayload := map[string]string{"email": email}
 	payloadBytes, err := json.Marshal(profilePayload)
+
 	if err != nil {
 		return nil, err
 	}
 
 	req, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(payloadBytes))
+
 	if err != nil {
 		return nil, err
 	}
@@ -70,9 +72,11 @@ func createProfile(email string, c echo.Context) (*Profile, error) {
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
+
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
@@ -80,6 +84,7 @@ func createProfile(email string, c echo.Context) (*Profile, error) {
 	}
 
 	var profile Profile
+
 	if err := json.NewDecoder(resp.Body).Decode(&profile); err != nil {
 		return nil, err
 	}
@@ -89,8 +94,10 @@ func createProfile(email string, c echo.Context) (*Profile, error) {
 
 func extractJWT(c echo.Context) string {
 	cookie, err := c.Cookie("token")
+
 	if err != nil {
 		return ""
 	}
+
 	return cookie.Value
 }
