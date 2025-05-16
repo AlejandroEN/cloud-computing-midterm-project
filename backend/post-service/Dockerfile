@@ -13,9 +13,6 @@ RUN npm install
 # Copia todo el código al contenedor
 COPY . .
 
-# Copia el archivo .env al contenedor
-COPY .env ./
-
 # Compila el proyecto (si estás utilizando TypeScript)
 RUN npm run build
 
@@ -23,6 +20,7 @@ RUN npm run build
 EXPOSE 80
 EXPOSE 22
 EXPOSE 27017
+EXPOSE 3000
 
 # Comando para iniciar la aplicación en modo producción
 CMD ["npm", "run", "start:prod"]

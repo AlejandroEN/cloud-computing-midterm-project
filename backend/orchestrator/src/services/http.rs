@@ -11,7 +11,7 @@ pub async fn make_request(
     headers: Option<HeaderMap>,
 ) -> reqwest::Result<Value> {
     let url = format!("{}/{}", base_url.trim_end_matches('/'), path.trim_start_matches('/'));
-    
+
     let mut builder = client.request(method, url);
 
     if let Some(h) = headers {
