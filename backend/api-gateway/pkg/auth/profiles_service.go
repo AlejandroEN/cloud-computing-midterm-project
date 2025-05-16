@@ -30,7 +30,7 @@ func getProfileByEmail(email string, c echo.Context) (*Profile, error) {
 		return nil, err
 	}
 
-	req.Header.Set("X-Internak-Token", os.Getenv("INTERNAL_API_SECRET"))
+	req.Header.Set("X-Internal-Token", os.Getenv("INTERNAL_API_SECRET"))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
