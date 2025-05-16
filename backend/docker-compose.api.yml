@@ -10,8 +10,12 @@ services:
 
   post-service:
     build: ./post-service
+    container_name: posts-api-c
     ports:
       - "8001:3000"
+    volumes:
+      - /home/ubuntu/.aws/credentials:/root/.aws/credentials
+      - /home/ubuntu/.aws/config:/root/.aws/config
     networks:
       - backend-network
 
