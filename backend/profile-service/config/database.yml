@@ -4,7 +4,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # Use environment variables for the host and port
   host: <%= ENV.fetch("DB_HOST", "localhost") %>
-  port: <%= ENV.fetch("DB_PORT", 5432) %>
+  port: <%= ENV.fetch("DB_PORT", 8000) %>
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
   # Ensure SSL is used if connecting to a production database in AWS
