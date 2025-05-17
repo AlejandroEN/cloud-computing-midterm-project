@@ -2,52 +2,52 @@
 
 Esta API permite gestionar posts con autenticación JWT. Todos los endpoints requieren un header:
 
-
 A continuación se describen cada uno de los endpoints disponibles.
 
 ---
 
 ## 1. `GET /posts/me`
 
-- **Descripción:** Obtiene todos los posts creados por el usuario autenticado.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:** —  
-- **Query params:** —  
-- **Body:** —  
-- **Respuesta (200):**  
+- **Descripción:** Obtiene todos los posts creados por el usuario autenticado.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:** —
+- **Query params:** —
+- **Body:** —
+- **Respuesta (200):**
   Array de objetos `Post`.
 
 ---
 
 ## 2. `GET /posts/profile/:profileId`
 
-- **Descripción:** Obtiene todos los posts públicos (no anónimos) de un vendedor.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `profileId` (string) – ID del vendedor  
-- **Query params:** —  
-- **Body:** — 
-- **Respuesta (200):**  
+- **Descripción:** Obtiene todos los posts públicos (no anónimos) de un vendedor.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `profileId` (string) – ID del vendedor
+- **Query params:** —
+- **Body:** —
+- **Respuesta (200):**
   Array de objetos `Post` con `is_anonymous: false`.
 
 ---
 
 ## 3. `GET /posts`
 
-- **Descripción:** Búsqueda global de posts con filtros y paginación. Anonimiza `seller_id` en posts anónimos (siempre `"anonymous"` si `is_anonymous: true`).  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Query params** (todos opcionales):  
-  - `priceMin` (number) – precio mínimo  
-  - `priceMax` (number) – precio máximo  
-  - `tag` (string) – tag a buscar  
-  - `nameContains` (string) – texto parcial en el título  
-  - `page` (number, default: 1) – página  
-  - `limit` (number, default: 10) – resultados por página  
-- **Body:** —  
-- **Respuesta (200):**  
+- **Descripción:** Búsqueda global de posts con filtros y paginación. Anonimiza `seller_id` en posts anónimos (siempre `"anonymous"` si `is_anonymous: true`).
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Query params** (todos opcionales):
+  - `priceMin` (number) – precio mínimo
+  - `priceMax` (number) – precio máximo
+  - `tag` (string) – tag a buscar
+  - `nameContains` (string) – texto parcial en el título
+  - `page` (number, default: 1) – página
+  - `limit` (number, default: 10) – resultados por página
+- **Body:** —
+- **Respuesta (200):**
+
   ```json
   {
     "data": [ /* array de posts anonimizados */ ],
@@ -63,14 +63,15 @@ A continuación se describen cada uno de los endpoints disponibles.
 
 ## 4. `GET /posts/:id`
 
-- **Descripción:** Obtiene el detalle de un post. Si `is_anonymous = true` y no eres el autor, `seller_id` = `"anonymous"`.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `id` (string) – ID del post  
-- **Query params:** —  
-- **Body:** — 
-- **Respuesta (200):**  
+- **Descripción:** Obtiene el detalle de un post. Si `is_anonymous = true` y no eres el autor, `seller_id` = `"anonymous"`.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `id` (string) – ID del post
+- **Query params:** —
+- **Body:** —
+- **Respuesta (200):**
+
   ```json
   {
     "_id": "607d1f77bcf86cd799439011",
@@ -94,13 +95,14 @@ A continuación se describen cada uno de los endpoints disponibles.
 
 ## 5. `POST /posts`
 
-- **Descripción:**  
+- **Descripción:**
   Crea un nuevo post. El campo `seller_id` se toma del JWT del usuario autenticado.
 
-- **Headers:**  
+- **Headers:**
   - `Authorization`: Bearer `<tu_jwt>`
 
-- **Body (JSON):**  
+- **Body (JSON):**
+
   ```json
   {
     "title":                "Mi título",           // obligatorio, string
@@ -111,7 +113,8 @@ A continuación se describen cada uno de los endpoints disponibles.
     "images":               ["url1","url2"],       // obligatorio, string[]
     "is_anonymous":         true,                  // opcional, boolean
   }
-- **Respuesta (200):**  
+- **Respuesta (200):**
+
   ```json
   {
   "_id": "607d1f77bcf86cd799439011",
@@ -133,70 +136,76 @@ A continuación se describen cada uno de los endpoints disponibles.
 
 ## 6. `PATCH /posts/delete/:id`
 
-- **Descripción:**  
+- **Descripción:**
   “Borrado” lógico (`is_deleted = true`). Solo el autor.
 
-- **Headers:**  
+- **Headers:**
   - `Authorization`: Bearer `<tu_jwt>`
 
-- **Path params:**  
+- **Path params:**
   - `id` (string) – ID del post
 
-- **Query params:** —  
-- **Body:** —  
+- **Query params:** —
+- **Body:** —
 
-- **Respuestas:**  
-  - **200 OK** (post actualizado)  
+- **Respuestas:**
+  - **200 OK** (post actualizado)
+
     ```json
     {
       "_id": "607d1f77bcf86cd799439011",
       "is_deleted": true,
       // … otros campos …
     }
+
 ---
 
 ## 7. `PATCH /posts/undelete/:id`
 
-- **Descripción:**  
+- **Descripción:**
   Revierte borrado lógico (`is_deleted = false`). Solo el autor.
 
-- **Headers:**  
+- **Headers:**
   - `Authorization`: Bearer `<tu_jwt>`
 
-- **Path params:**  
+- **Path params:**
   - `id` (string)
 
-- **Body / Query:** —  
+- **Body / Query:** —
 
-- **Respuestas:**  
-  - **200 OK** (post actualizado)  
+- **Respuestas:**
+  - **200 OK** (post actualizado)
+
     ```json
     {
       "_id": "607d1f77bcf86cd799439011",
       "is_deleted": false,
       // … otros campos …
     }
+
 ---
 
 ## 8. `PUT /posts/:id`
 
-- **Descripción:** Actualiza uno o más campos de un post existente. Solo el autor puede hacerlo.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `id` (string) – ID del post a actualizar  
-- **Body (JSON, todos opcionales):**  
+- **Descripción:** Actualiza uno o más campos de un post existente. Solo el autor puede hacerlo.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `id` (string) – ID del post a actualizar
+- **Body (JSON, todos opcionales):**
+
   ```json
   {
-    "title":                "Nuevo título",        // opcional, string  
-    "description":          "Nueva descripción",   // opcional, string  
-    "tags":                 ["x","y"],             // opcional, string[]  
-    "price":                999.99,                // opcional, number  
-    "presentation_card_id": "card456",             // opcional, string  
-    "images":               ["url3","url4"]        // opcional, string[]  
+    "title":                "Nuevo título",        // opcional, string
+    "description":          "Nueva descripción",   // opcional, string
+    "tags":                 ["x","y"],             // opcional, string[]
+    "price":                999.99,                // opcional, number
+    "presentation_card_id": "card456",             // opcional, string
+    "images":               ["url3","url4"]        // opcional, string[]
   }
-- **Respuestas:**  
-  - **200 OK** (post actualizado)  
+- **Respuestas:**
+  - **200 OK** (post actualizado)
+
     ```json
     {
     "_id": "607d1f77bcf86cd799439011",
@@ -213,20 +222,21 @@ A continuación se describen cada uno de los endpoints disponibles.
     "stars_amount": 5,
     "ratings_count": 3,
     "createdAt": "2025-05-09T12:00:00.000Z",
-    "updatedAt": "2025-05-09T12:10:00.000Z"  
+    "updatedAt": "2025-05-09T12:10:00.000Z"
     }
 
 ---
 
 ## 9. `PATCH /posts/archive/:id`
 
-- **Descripción:** Marca un post como archivado (`is_archived = true`). Solo el autor puede hacerlo.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `id` (string) – ID del post a archivar  
-- **Body:** —  
-- **Respuesta (200):**  
+- **Descripción:** Marca un post como archivado (`is_archived = true`). Solo el autor puede hacerlo.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `id` (string) – ID del post a archivar
+- **Body:** —
+- **Respuesta (200):**
+
   ```json
   {
     "_id": "607d1f77bcf86cd799439011",
@@ -238,13 +248,14 @@ A continuación se describen cada uno de los endpoints disponibles.
 
 ## 10. `PATCH /posts/unarchive/:id`
 
-- **Descripción:** Revierte el archivado de un post (`is_archived = false`). Solo el autor puede hacerlo.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `id` (string) – ID del post a desarchivar  
-- **Body:** —  
-- **Respuesta (200):**  
+- **Descripción:** Revierte el archivado de un post (`is_archived = false`). Solo el autor puede hacerlo.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `id` (string) – ID del post a desarchivar
+- **Body:** —
+- **Respuesta (200):**
+
   ```json
   {
     "_id": "607d1f77bcf86cd799439011",
@@ -256,13 +267,14 @@ A continuación se describen cada uno de los endpoints disponibles.
 
 ## 11. `PATCH /posts/anonymous/:id`
 
-- **Descripción:** Marca un post como anónimo (`is_anonymous = true`). Solo el autor puede hacerlo.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `id` (string) – ID del post a marcar como anónimo  
-- **Body:** —  
-- **Respuesta (200):**  
+- **Descripción:** Marca un post como anónimo (`is_anonymous = true`). Solo el autor puede hacerlo.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `id` (string) – ID del post a marcar como anónimo
+- **Body:** —
+- **Respuesta (200):**
+
   ```json
   {
     "_id": "607d1f77bcf86cd799439011",
@@ -274,35 +286,39 @@ A continuación se describen cada uno de los endpoints disponibles.
 
 ## 12. `PATCH /posts/unanonymous/:id`
 
-- **Descripción:** Revierte el anonimato de un post (`is_anonymous = false`). Solo el autor puede hacerlo.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `id` (string) – ID del post a desmarcar como anónimo  
-- **Body:** —  
-- **Respuesta (200):**  
+- **Descripción:** Revierte el anonimato de un post (`is_anonymous = false`). Solo el autor puede hacerlo.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `id` (string) – ID del post a desmarcar como anónimo
+- **Body:** —
+- **Respuesta (200):**
+
   ```json
   {
     "_id": "607d1f77bcf86cd799439011",
     "is_anonymous": false,
     // …otros campos…
   }
+
 ---
 
 ## 13. `PATCH /posts/rate/:id`
 
-- **Descripción:**  
-  Añade una valoración numérica (0–5) a un post y recalcula su promedio. Cualquiera excepto el creador puede hacerlo.  
-- **Headers:**  
-  - `Authorization` (Bearer Token)  
-- **Path params:**  
-  - `id` (string) – ID del post a valorar  
-- **Body (JSON):**  
+- **Descripción:**
+  Añade una valoración numérica (0–5) a un post y recalcula su promedio. Cualquiera excepto el creador puede hacerlo.
+- **Headers:**
+  - `Authorization` (Bearer Token)
+- **Path params:**
+  - `id` (string) – ID del post a valorar
+- **Body (JSON):**
+
   ```json
   {
     "rating": 5   // obligatorio, number entre 0 y 5
   }
-- **Respuesta (200):**  
+- **Respuesta (200):**
+
   ```json
   {
   "_id": "607d1f77bcf86cd799439011",

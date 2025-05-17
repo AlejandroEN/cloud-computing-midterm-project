@@ -1,0 +1,1175 @@
+{
+  "info": {
+    "_postman_id": "035105a2-8074-49a7-82ca-d503d97f2c8b",
+    "name": "posts/api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "35179982"
+  },
+  "item": [
+    {
+      "name": "Seller_id = 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var template = `\r",
+              "<style type=\"text/css\">\r",
+              "    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+              "    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+              "    .tftable tr {background-color:#ffffff;}\r",
+              "    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+              "    .tftable tr:hover {background-color:#e0ffff;}\r",
+              "</style>\r",
+              "\r",
+              "<table class=\"tftable\" border=\"1\">\r",
+              "    <tr>\r",
+              "        <th>Message</th>\r",
+              "        <th>Error</th>\r",
+              "        <th>Status Code</th>\r",
+              "    </tr>\r",
+              "    <tr>\r",
+              "        <td>{{response.message}}</td>\r",
+              "        <td>{{response.error}}</td>\r",
+              "        <td>{{response.statusCode}}</td>\r",
+              "    </tr>\r",
+              "</table>\r",
+              "`;\r",
+              "\r",
+              "function constructVisualizerPayload() {\r",
+              "    return {response: pm.response.json()}\r",
+              "}\r",
+              "\r",
+              "pm.visualizer.set(template, constructVisualizerPayload());"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "Post en AWS con imagenes en S3 4 id=1",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "descripcionS3",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag1",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag2",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag3",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "500",
+              "type": "text"
+            },
+            {
+              "key": "presentation_card_id",
+              "value": "abc123",
+              "type": "text"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/honda.jpg"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/Captura de pantalla 2025-05-01 132957.png"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/MN3.jpg"
+            },
+            {
+              "key": "is_anonymous",
+              "value": "true",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{URL}}posts",
+          "host": [
+            "{{URL}}posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Seller_id = 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var template = `\r",
+              "<style type=\"text/css\">\r",
+              "    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+              "    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+              "    .tftable tr {background-color:#ffffff;}\r",
+              "    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+              "    .tftable tr:hover {background-color:#e0ffff;}\r",
+              "</style>\r",
+              "\r",
+              "<table class=\"tftable\" border=\"1\">\r",
+              "    <tr>\r",
+              "        <th>Message</th>\r",
+              "        <th>Error</th>\r",
+              "        <th>Status Code</th>\r",
+              "    </tr>\r",
+              "    <tr>\r",
+              "        <td>{{response.message}}</td>\r",
+              "        <td>{{response.error}}</td>\r",
+              "        <td>{{response.statusCode}}</td>\r",
+              "    </tr>\r",
+              "</table>\r",
+              "`;\r",
+              "\r",
+              "function constructVisualizerPayload() {\r",
+              "    return {response: pm.response.json()}\r",
+              "}\r",
+              "\r",
+              "pm.visualizer.set(template, constructVisualizerPayload());"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "packages": {},
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "Post en AWS con imagenes en S3 id=2",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "descripcionS3",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag1",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag2",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "700",
+              "type": "text"
+            },
+            {
+              "key": "presentation_card_id",
+              "value": "qwe123",
+              "type": "text"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/sjw.jpg"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/minecraft-server-icon-16.png"
+            },
+            {
+              "key": "is_anonymous",
+              "value": "false",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{URL}}posts",
+          "host": [
+            "{{URL}}posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts?page=1",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "by post_id - Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "by post_id - Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/delete/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "delete",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/delete/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "delete",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Undelete Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/undelete/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "undelete",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Undelete Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/delete/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "delete",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update post Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "Post en AWS con imagenes en S3 Actualizado",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "Descripcion actualizado",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag 11",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag 12",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "1000",
+              "type": "text"
+            },
+            {
+              "key": "presentation_card_id",
+              "value": "presentacion actualizada",
+              "type": "text"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/Ghibli Inspired Wallapaper.jpg"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/luffy.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{URL}}posts/68263b72434f30a3145e04c6",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "68263b72434f30a3145e04c6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update post Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "Post en AWS con imagenes en S3 Actualizado",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "Descripcion actualizado",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag 11",
+              "type": "text"
+            },
+            {
+              "key": "tags",
+              "value": "tag12",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "1000",
+              "type": "text"
+            },
+            {
+              "key": "presentation_card_id",
+              "value": "presentacion actualizada",
+              "type": "text"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/Captura de pantalla 2025-04-20 023045.png"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "/C:/Users/User/Downloads/209-2098816_icones-para-servidores-de-minecraft.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{URL}}posts/68263b72434f30a3145e04c6",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "68263b72434f30a3145e04c6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Archive post Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/archive/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "archive",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Archive post Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/archive/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "archive",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unarchive post Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/unarchive/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "unarchive",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unarchive post Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/unarchive/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "unarchive",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Anonymous post Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/anonymous/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "anonymous",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Anonymous post Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/anonymous/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "anonymous",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unanonymous post Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/unanonymous/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "unanonymous",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Unanonymous post Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/unanonymous/681d4dd70f3700ffc7893d7f",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "unanonymous",
+            "681d4dd70f3700ffc7893d7f"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Me post Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/me",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Me post Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/me",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Posts by profileId",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/profile/2",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "profile",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "With Query - Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/?nameContains=AWS",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            ""
+          ],
+          "query": [
+            {
+              "key": "nameContains",
+              "value": "AWS"
+            },
+            {
+              "key": "priceMax",
+              "value": "1400",
+              "disabled": true
+            },
+            {
+              "key": "priceMin",
+              "value": "200",
+              "disabled": true
+            },
+            {
+              "key": "tag",
+              "value": "",
+              "disabled": true
+            },
+            {
+              "key": "page",
+              "value": "2",
+              "disabled": true
+            },
+            {
+              "key": "limit",
+              "value": "",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "With Query - Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{URL}}posts/",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            ""
+          ],
+          "query": [
+            {
+              "key": "nameContains",
+              "value": "actualizado",
+              "disabled": true
+            },
+            {
+              "key": "priceMax",
+              "value": "1400",
+              "disabled": true
+            },
+            {
+              "key": "priceMin",
+              "value": "200",
+              "disabled": true
+            },
+            {
+              "key": "tag",
+              "value": null,
+              "disabled": true
+            },
+            {
+              "key": "page",
+              "value": null,
+              "disabled": true
+            },
+            {
+              "key": "limit",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update RateStars - Seller_id = 1",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"rating\": 5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}posts/rate/681dba859cb2736bec8f6e1e",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "rate",
+            "681dba859cb2736bec8f6e1e"
+          ],
+          "query": [
+            {
+              "key": "nameContains",
+              "value": "actualizado",
+              "disabled": true
+            },
+            {
+              "key": "priceMax",
+              "value": "1400",
+              "disabled": true
+            },
+            {
+              "key": "priceMin",
+              "value": "200",
+              "disabled": true
+            },
+            {
+              "key": "tag",
+              "value": null,
+              "disabled": true
+            },
+            {
+              "key": "page",
+              "value": null,
+              "disabled": true
+            },
+            {
+              "key": "limit",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update RateStars - Seller_id = 2",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Profile-ID",
+            "value": "2",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"rating\": 8\r\n}   ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}posts/rate/681dba859cb2736bec8f6e1e",
+          "host": [
+            "{{URL}}posts"
+          ],
+          "path": [
+            "rate",
+            "681dba859cb2736bec8f6e1e"
+          ],
+          "query": [
+            {
+              "key": "nameContains",
+              "value": "actualizado",
+              "disabled": true
+            },
+            {
+              "key": "priceMax",
+              "value": "1400",
+              "disabled": true
+            },
+            {
+              "key": "priceMin",
+              "value": "200",
+              "disabled": true
+            },
+            {
+              "key": "tag",
+              "value": null,
+              "disabled": true
+            },
+            {
+              "key": "page",
+              "value": null,
+              "disabled": true
+            },
+            {
+              "key": "limit",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "URL",
+      "value": "http://54.163.23.2:8001/",
+      "type": "default"
+    }
+  ]
+}

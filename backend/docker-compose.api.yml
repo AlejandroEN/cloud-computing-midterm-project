@@ -1,0 +1,37 @@
+services:
+  profile-service:
+    build: ./profile-service
+    ports:
+      - "8000:3000"
+    env_file:
+      - ./profile-service/.env
+    networks:
+      - backend-network
+
+  post-service:
+    build: ./post-service
+    ports:
+      - "8001:3000"
+    volumes:
+      - /home/ubuntu/.aws/credentials:/root/.aws/credentials
+      - /home/ubuntu/.aws/config:/root/.aws/config
+    networks:
+      - backend-network
+
+  # api-gateway:
+  #   build: ./api-gateway
+  #   ports:
+  #     - "8002:8080"
+  #   networks:
+  #     - backend-network
+
+  # purchase-service:
+  #   build: ./purchase-service
+  #   ports:
+  #     - "8002:3000"
+  #   env_file:
+  #     - ./purchase-service/.env
+
+networks:
+  backend-network:
+   driver: bridge

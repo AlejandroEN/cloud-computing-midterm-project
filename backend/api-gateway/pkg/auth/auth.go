@@ -1,14 +1,16 @@
 package auth
 
 import (
+	_ "api-gateway/pkg/config"
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/labstack/echo/v4"
 
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/oauth2"

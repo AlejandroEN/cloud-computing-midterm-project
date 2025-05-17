@@ -2,20 +2,10 @@ package main
 
 import (
 	"api-gateway/pkg/auth"
-	"log"
-
-	"github.com/joho/godotenv"
-
+	_ "api-gateway/pkg/config"
 	"api-gateway/pkg/rerouting"
 	"api-gateway/pkg/server"
 )
-
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
-}
 
 func main() {
 	e := server.NewServer()

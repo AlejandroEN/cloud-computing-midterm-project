@@ -1,33 +1,32 @@
-// src/dto/posts-query.dto.ts
-import { IsOptional, IsNumber, IsString } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Type } from "class-transformer";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class PostsQueryDto {
-  @IsOptional()
-  @Type(() => Number)
-  @IsNumber()
-  priceMin?: number;
+	@IsOptional()
+	@Type(() => Number)
+	@IsNumber()
+	priceMin?: number;
 
-  @IsOptional()
-  @Type(() => Number)
-  @IsNumber()
-  priceMax?: number;
+	@IsOptional()
+	@Type(() => Number)
+	@IsNumber()
+	priceMax?: number;
 
-  @IsOptional()
-  @IsString()
-  tag?: string;
+	@IsOptional()
+	@IsString()
+	tag?: string;
 
-  @IsOptional()
-  @IsString()
-  nameContains?: string;
+	@IsOptional()
+	@IsString()
+	nameContains?: string;
 
-  @IsOptional()
-  @Type(() => Number)
-  @IsNumber()
-  page?: number;
+	@IsOptional()
+	@Type(() => Number)
+	@IsNumber()
+	page?: number;
 
-  @IsOptional()
-  @Type(() => Number)
-  @IsNumber()
-  limit?: number;
+	@IsOptional()
+	@Type(() => Number)
+	@IsNumber()
+	limit?: number;
 }
