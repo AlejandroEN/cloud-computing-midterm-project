@@ -10,7 +10,7 @@ services:
 
   post-service:
     build: ./post-service
-    container_name: posts-api-c
+    container_name: posts-service-c
     ports:
       - "8001:3000"
     volumes:
