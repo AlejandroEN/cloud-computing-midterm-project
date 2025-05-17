@@ -1,16 +1,17 @@
 from fastapi import FastAPI
-from controllers.purchase.controller import router as purchase_router
-import models
-from database import engine, Base
+from api import purchases, reviews
+from db import engine
+from api.purchases.models import Base as PurchaseBase
+from api.reviews.models import Base as ReviewBase
+from api.purchases.routes import router as purchases_router
+from api.reviews.routes import router as reviews_router
+from middleware import ValidateHeadersMiddleware
 
-# Crear las tablas al iniciar
-models.Base.metadata.create_all(bind=engine)
+app = FastAPI(title="Purchases Microservice")
+app.add_middleware(ValidateHeadersMiddleware)
 
-app = FastAPI()
+PurchaseBase.metadata.create_all(bind=engine)
+ReviewBase.metadata.create_all(bind=engine)
 
-# Registrar los controladores
-app.include_router(purchase_router)
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+app.include_router(purchases_router)
+app.include_router(reviews_router)
